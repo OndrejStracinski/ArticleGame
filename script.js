@@ -7,6 +7,8 @@ async function loadTexts() {
   texts = await res.json();
 }
 
+let currentRound = null;
+
 function startGame() {
   username = document.getElementById("username").value.trim();
   if (!username) {
@@ -17,23 +19,37 @@ function startGame() {
   document.getElementById("login").style.display = "none";
   document.getElementById("waiting").style.display = "block";
 
-  // Listen for when the admin picks a new question
-  db.ref("currentQuestion").on("value", async (snapshot) => {
+  // Watch current round from Firebase
+  db.ref("currentRound").on("value", async (snapshot) => {
     const data = snapshot.val();
-    if (!data || !data.id) return; // no question yet
 
-    // load texts if not loaded
+    // No active round → waiting screen
+    if (!data || !data.id || !data.textId) {
+      currentRound = null;
+      document.getElementById("game").style.display = "none";
+      document.getElementById("results").style.display = "none";
+      document.getElementById("waiting").style.display = "block";
+      return;
+    }
+
+    // Active round detected
     if (!texts.length) await loadTexts();
+    const textObj = texts.find((t) => t.id === data.textId);
+    if (!textObj) return;
 
-    currentText = texts.find(t => t.id === data.id);
-    if (!currentText) return;
+    currentRound = data;
+    currentText = textObj;
 
-    // Show the question to the player
     document.getElementById("waiting").style.display = "none";
+    document.getElementById("results").style.display = "none";
     document.getElementById("game").style.display = "block";
     showText(currentText);
+
+    // Start listening to this round’s leaderboard
+    fetchLeaderboard();
   });
 }
+
 
 function showText(textObj) {
   document.getElementById("title").textContent = textObj.title;
@@ -132,8 +148,10 @@ function submitAnswers() {
     score,
     date,
     time,
-    textId: currentText.id
+    textId: currentText.id,
+    roundId: currentRound.id
   };
+
 
   db.ref("results").push(result);
 
@@ -161,20 +179,20 @@ function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
 
   db.ref("results")
-    .orderByChild("textId")
-    .equalTo(currentText.id)
+    .orderByChild("roundId")
+    .equalTo(currentRound.id)
     .on("value", (snapshot) => {
       let results = [];
       snapshot.forEach((child) => results.push(child.val()));
 
       if (results.length === 0) {
-        leaderboardEl.innerHTML = "<li>No results yet for this exercise.</li>";
+        leaderboardEl.innerHTML = "<li>No results yet for this round.</li>";
         return;
       }
 
       const total = currentText.answers.length;
 
-      // Sort: highest score first, then newest
+      // Sort by score, then most recent
       results.sort((a, b) => {
         if (b.score === a.score) {
           return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
@@ -183,22 +201,20 @@ function fetchLeaderboard() {
       });
 
       leaderboardEl.innerHTML = `
-        <li><strong>Live Leaderboard for "${currentText.title}"</strong></li>
+        <li><strong>Live Leaderboard (Round ${currentRound.id})</strong></li>
         ${results
           .map((r, i) => {
-            const textObj = texts.find((t) => t.id === r.textId);
-            const title = textObj ? textObj.title : "Unknown Text";
             const pct = ((r.score / total) * 100).toFixed(0);
-            const isYou =
-              r.username.toLowerCase() === username.toLowerCase();
-            return `<li ${
-              isYou ? 'class="highlighted"' : ""
-            }>${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time}</li>`;
+            const isYou = r.username.toLowerCase() === username.toLowerCase();
+            return `<li ${isYou ? 'class="highlighted"' : ''}>
+              ${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time}
+            </li>`;
           })
           .join("")}
       `;
     });
 }
+
 
 
 
