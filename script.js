@@ -1,6 +1,7 @@
 let texts = [];
 let currentText = null;
 let username = "";
+let timerInterval = null;
 
 async function loadTexts() {
   const res = await fetch("data/texts.json");
@@ -23,16 +24,17 @@ function startGame() {
   db.ref("currentRound").on("value", async (snapshot) => {
     const data = snapshot.val();
 
-    // No active round → waiting screen
     if (!data || !data.id || !data.textId) {
       currentRound = null;
       document.getElementById("game").style.display = "none";
       document.getElementById("results").style.display = "none";
       document.getElementById("waiting").style.display = "block";
+      clearInterval(timerInterval);
+      document.getElementById("timer").textContent = "";
       return;
     }
 
-    // Active round detected
+    // Active round
     if (!texts.length) await loadTexts();
     const textObj = texts.find((t) => t.id === data.textId);
     if (!textObj) return;
@@ -44,11 +46,36 @@ function startGame() {
     document.getElementById("results").style.display = "none";
     document.getElementById("game").style.display = "block";
     showText(currentText);
-
-    // Start listening to this round’s leaderboard
     fetchLeaderboard();
+
+    startCountdown(data.startTime, data.duration);
   });
+
 }
+
+function startCountdown(startTime, durationSec) {
+  clearInterval(timerInterval);
+
+  const timerEl = document.getElementById("timer");
+  const endTime = startTime + durationSec * 1000;
+
+  function updateTimer() {
+    const now = Date.now();
+    const remaining = Math.max(0, Math.floor((endTime - now) / 1000));
+
+    timerEl.textContent = `⏰ Time left: ${remaining}s`;
+
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      timerEl.textContent = "⏳ Time's up!";
+      autoSubmitIfNotYet();
+    }
+  }
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 500);
+}
+
 
 
 function showText(textObj) {
@@ -99,6 +126,8 @@ function escapeHtml(str) {
 }
 
 function submitAnswers() {
+  hasSubmitted = true;
+  clearInterval(timerInterval);
   let score = 0;
   let displayHtml = "";
   const parts = currentText.text.split("___");
@@ -226,6 +255,14 @@ function fetchLeaderboard() {
         .join("")}
     `;
   }
+}
+
+let hasSubmitted = false;
+
+function autoSubmitIfNotYet() {
+  if (hasSubmitted) return;
+  hasSubmitted = true;
+  submitAnswers();
 }
 
 

@@ -8,9 +8,10 @@
 <body>
   <div id="container">
     <h1>👩‍🏫 Admin Control</h1>
-    <p>Select a question to broadcast to all players:</p>
+    <p>Select a question and duration:</p>
     <select id="question-select"></select>
-    <button id="emit-btn">Start Question</button>
+    <input type="number" id="duration" placeholder="Seconds" value="30" min="5" style="width:80px;" />
+    <button id="emit-btn">Start Round</button>
     <p id="status"></p>
 
     <h3>Live Leaderboard</h3>
@@ -39,11 +40,20 @@
 
     // Start a new round
     document.getElementById("emit-btn").addEventListener("click", () => {
-        const textId = parseInt(document.getElementById("question-select").value);
-        const roundId = Date.now(); // unique id
-        db.ref("currentRound").set({ id: roundId, textId });
-        document.getElementById("status").textContent =
-        `✅ Round ${roundId} started (${texts.find(t => t.id === textId).title})`;
+    const textId = parseInt(document.getElementById("question-select").value);
+    const duration = parseInt(document.getElementById("duration").value) || 30;
+    const roundId = Date.now();
+    const startTime = Date.now(); // mark the moment round starts
+
+    db.ref("currentRound").set({
+        id: roundId,
+        textId,
+        duration,
+        startTime
+    });
+
+    document.getElementById("status").textContent =
+        `✅ Round ${roundId} started (${texts.find(t => t.id === textId).title}) for ${duration} seconds`;
     });
 
     // Reset round
