@@ -15,13 +15,22 @@
     "id": 3,
     "title": "Healthy Habits",
     "text": "___ water is important for health. I drink ___ glass of water every morning.",
-    "answers": ["—", "a"]
+    "answers": ["—", "a"],
+    "explanations": [
+      "No article is used before uncountable nouns when speaking generally.",
+      "'A' is used before singular countable nouns when introducing one of many."
+    ]
   },
+  
   {
     "id": 4,
     "title": "School Life",
     "text": "___ students in our class love ___ teacher because she is kind.",
-    "answers": ["—", "the"]
+    "answers": [["—", "The"], "the"],
+    "explanations": [
+      "Both 'The' and no article are acceptable. 'The' defines a specific group, while no article generalizes plural nouns.",
+      "We use 'the' because both speaker and listener know which teacher we’re referring to."
+    ]
   },
   {
     "id": 5,

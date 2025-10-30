@@ -37,3 +37,38 @@ select.blank {
   padding: 4px;
   font-size: 16px;
 }
+.correct {
+  color: green;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: red;
+  font-weight: bold;
+  text-decoration: underline dotted red;
+}
+
+.incorrect:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #fff8dc;
+  border: 1px solid #ccc;
+  padding: 4px 6px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  z-index: 10;
+  max-width: 300px;
+}
+
+.answer-review {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.explanation {
+  font-size: 0.9em;
+  color: #555;
+  margin-left: 6px;
+  display: block;
+}
+

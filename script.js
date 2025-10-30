@@ -49,17 +49,37 @@ function createDropdown(index) {
 
 function submitAnswers() {
   let score = 0;
+  let displayHtml = "";
+  const parts = currentText.text.split("___");
 
-  currentText.answers.forEach((answer, i) => {
+  for (let i = 0; i < currentText.answers.length; i++) {
     const userAns = document.getElementById(`blank-${i}`).value.trim();
+    const validAnswers = Array.isArray(currentText.answers[i])
+      ? currentText.answers[i]
+      : [currentText.answers[i]];
 
-    const validAnswers = Array.isArray(answer) ? answer : [answer];
     const isCorrect = validAnswers.some(
       opt => opt.toLowerCase() === userAns.toLowerCase()
     );
-
     if (isCorrect) score++;
-  });
+
+    // Tooltip text for hover (all valid answers)
+    const tooltip = validAnswers.join(" / ");
+    // Optional explanation
+    const explanation =
+      currentText.explanations && currentText.explanations[i]
+        ? `<div class="explanation">${currentText.explanations[i]}</div>`
+        : "";
+
+    // Build colored span for the user's answer
+    const colorClass = isCorrect ? "correct" : "incorrect";
+    const answerHtml = `<span class="${colorClass}" title="Correct: ${tooltip}">${userAns || "(blank)"}${explanation}</span>`;
+
+    displayHtml += parts[i] + answerHtml;
+  }
+
+  // Add final text fragment (after last blank)
+  displayHtml += parts[parts.length - 1];
 
   const now = new Date();
   const date = now.toISOString().split("T")[0];
@@ -76,14 +96,20 @@ function submitAnswers() {
   // Save to Firebase
   db.ref("results").push(result);
 
-  // Display results
+  // Display feedback text + leaderboard
   document.getElementById("game").style.display = "none";
   document.getElementById("results").style.display = "block";
   document.getElementById("score").textContent =
     `${username}, your score: ${score}/${currentText.answers.length}`;
 
+  const resultDisplay = document.createElement("div");
+  resultDisplay.classList.add("answer-review");
+  resultDisplay.innerHTML = `<h3>Your Answers:</h3><p>${displayHtml}</p>`;
+  document.getElementById("results").prepend(resultDisplay);
+
   fetchLeaderboard();
 }
+
 
 
 function fetchLeaderboard() {
