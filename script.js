@@ -129,24 +129,6 @@ function submitAnswers() {
 }
 
 
-  // Save to Firebase
-  db.ref("results").push(result);
-
-  // Display feedback text + leaderboard
-  document.getElementById("game").style.display = "none";
-  document.getElementById("results").style.display = "block";
-  document.getElementById("score").textContent =
-    `${username}, your score: ${score}/${currentText.answers.length}`;
-
-  const resultDisplay = document.createElement("div");
-  resultDisplay.classList.add("answer-review");
-  resultDisplay.innerHTML = `<h3>Your Answers:</h3><p>${displayHtml}</p>`;
-  document.getElementById("results").prepend(resultDisplay);
-
-  fetchLeaderboard();
-}
-
-
 
 function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
