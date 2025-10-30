@@ -149,12 +149,10 @@ function submitAnswers() {
     date,
     time,
     textId: currentText.id,
-    roundId: currentRound.id
+    roundId: String(currentRound.id)
   };
 
-
   db.ref("results").push(result);
-
   // show review + leaderboard
   document.getElementById("game").style.display = "none";
   document.getElementById("results").style.display = "block";
@@ -175,47 +173,60 @@ function submitAnswers() {
 
 
 
+let leaderboardListener = null; // keep reference so we can detach old listeners
+
 function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
 
-  db.ref("results")
-    .orderByChild("roundId")
-    .equalTo(currentRound.id)
-    .on("value", (snapshot) => {
-      let results = [];
-      snapshot.forEach((child) => results.push(child.val()));
+  // If a previous listener exists, remove it (avoid duplicate data)
+  if (leaderboardListener) leaderboardListener.off();
 
-      if (results.length === 0) {
-        leaderboardEl.innerHTML = "<li>No results yet for this round.</li>";
-        return;
+  const ref = db.ref("results").orderByChild("roundId").equalTo(String(currentRound.id));
+  leaderboardListener = ref;
+
+  let results = [];
+
+  ref.on("child_added", (snapshot) => {
+    const result = snapshot.val();
+    results.push(result);
+    updateLeaderboardDisplay(results);
+  });
+
+  ref.on("child_removed", (snapshot) => {
+    // if round resets, clear the leaderboard
+    results = results.filter(r => r.roundId !== String(currentRound.id));
+    updateLeaderboardDisplay(results);
+  });
+
+  function updateLeaderboardDisplay(resultsArr) {
+    if (!resultsArr.length) {
+      leaderboardEl.innerHTML = "<li>No results yet for this round.</li>";
+      return;
+    }
+
+    const total = currentText.answers.length;
+
+    resultsArr.sort((a, b) => {
+      if (b.score === a.score) {
+        return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
       }
-
-      const total = currentText.answers.length;
-
-      // Sort by score, then most recent
-      results.sort((a, b) => {
-        if (b.score === a.score) {
-          return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
-        }
-        return b.score - a.score;
-      });
-
-      leaderboardEl.innerHTML = `
-        <li><strong>Live Leaderboard (Round ${currentRound.id})</strong></li>
-        ${results
-          .map((r, i) => {
-            const pct = ((r.score / total) * 100).toFixed(0);
-            const isYou = r.username.toLowerCase() === username.toLowerCase();
-            return `<li ${isYou ? 'class="highlighted"' : ''}>
-              ${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time}
-            </li>`;
-          })
-          .join("")}
-      `;
+      return b.score - a.score;
     });
+
+    leaderboardEl.innerHTML = `
+      <li><strong>Live Leaderboard (Round ${currentRound.id})</strong></li>
+      ${resultsArr
+        .map((r, i) => {
+          const pct = ((r.score / total) * 100).toFixed(0);
+          const isYou = r.username.toLowerCase() === username.toLowerCase();
+          return `<li ${isYou ? 'class="highlighted"' : ''}>
+            ${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time}
+          </li>`;
+        })
+        .join("")}
+    `;
+  }
 }
-
-
 
 
 
