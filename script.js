@@ -125,7 +125,7 @@ function submitAnswers() {
   resultDisplay.innerHTML = `<h3>Your Answers:</h3><p>${displayHtml}</p>`;
   document.getElementById("results").prepend(resultDisplay);
 
-  fetchLeaderboard(); // should already be the filtered-by-id version
+  fetchLeaderboard(result); // should already be the filtered-by-id version
 }
 
 
