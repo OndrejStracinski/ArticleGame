@@ -69,6 +69,13 @@ select.blank {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+.highlighted {
+  background-color: #e8ffe8;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+
 
 .answer-review {
   text-align: left;

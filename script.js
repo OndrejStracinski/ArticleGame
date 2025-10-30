@@ -130,7 +130,7 @@ function submitAnswers() {
 
 
 
-function fetchLeaderboard() {
+function fetchLeaderboard(latestResult = null) {
   const leaderboardEl = document.getElementById("leaderboard");
   leaderboardEl.innerHTML = "<li>Loading...</li>";
 
@@ -141,6 +141,12 @@ function fetchLeaderboard() {
       let results = [];
       snapshot.forEach((child) => results.push(child.val()));
 
+      // Add the current user's latest attempt immediately
+      if (latestResult) {
+        results.push(latestResult);
+      }
+
+      // Sort: highest score first, then newest
       results.sort((a, b) => {
         if (b.score === a.score) {
           return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
@@ -153,20 +159,30 @@ function fetchLeaderboard() {
         return;
       }
 
+      // Find the total number of questions in this text
+      const total = currentText.answers.length;
+
       leaderboardEl.innerHTML = `
         <li><strong>Leaderboard for "${currentText.title}"</strong></li>
         ${results
           .map((r, i) => {
-            // Find matching text title from texts.json by id
-            const textObj = texts.find(t => t.id === r.textId);
+            const textObj = texts.find((t) => t.id === r.textId);
             const title = textObj ? textObj.title : "Unknown Text";
+            const pct = ((r.score / total) * 100).toFixed(0); // dynamic %
+            const isYou =
+              r.username.toLowerCase() === username.toLowerCase() &&
+              r.date === latestResult?.date &&
+              r.time === latestResult?.time;
 
-            return `<li>${i + 1}. ${r.username}: ${r.score} pts (${r.date} ${r.time}) — <em>${title}</em></li>`;
+            return `<li ${
+              isYou ? 'class="highlighted"' : ""
+            }>${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time} — <em>${title}</em></li>`;
           })
           .join("")}
       `;
     });
 }
+
 
 
 function restartGame() {
