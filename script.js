@@ -134,20 +134,16 @@ function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
   leaderboardEl.innerHTML = "<li>Loading...</li>";
 
-  // Reference only results for the current text ID
   db.ref("results")
     .orderByChild("textId")
     .equalTo(currentText.id)
     .once("value", (snapshot) => {
       let results = [];
-      snapshot.forEach((child) => {
-        results.push(child.val());
-      });
+      snapshot.forEach((child) => results.push(child.val()));
 
-      // Sort: highest score first, then by most recent time
       results.sort((a, b) => {
         if (b.score === a.score) {
-          return new Date(b.date + " " + b.time) - new Date(a.date + " " + a.time);
+          return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
         }
         return b.score - a.score;
       });
@@ -157,18 +153,21 @@ function fetchLeaderboard() {
         return;
       }
 
-      // Display leaderboard title
       leaderboardEl.innerHTML = `
         <li><strong>Leaderboard for "${currentText.title}"</strong></li>
         ${results
-          .map(
-            (r, index) =>
-              `<li>${index + 1}. ${r.username}: ${r.score} pts (${r.date} ${r.time})</li>`
-          )
+          .map((r, i) => {
+            // Find matching text title from texts.json by id
+            const textObj = texts.find(t => t.id === r.textId);
+            const title = textObj ? textObj.title : "Unknown Text";
+
+            return `<li>${i + 1}. ${r.username}: ${r.score} pts (${r.date} ${r.time}) — <em>${title}</em></li>`;
+          })
           .join("")}
       `;
     });
 }
+
 
 function restartGame() {
   document.getElementById("results").style.display = "none";
