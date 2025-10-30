@@ -15,7 +15,7 @@
 
     <h3>Live Leaderboard</h3>
     <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
-    
+
     <button id="reset-btn">Reset / Next Round</button>
   </div>
 
@@ -53,42 +53,43 @@
     });
 
     // Live leaderboard
-    db.ref("currentRound").on("value", (snapshot) => {
-        const data = snapshot.val();
-        if (!data || !data.id || !data.textId) {
-        document.getElementById("admin-leaderboard").innerHTML =
-            "<li>No active round.</li>";
-        return;
-        }
-        const { id, textId } = data;
-        const total = texts.find(t => t.id === textId)?.answers.length || 1;
-        db.ref("results")
-        .orderByChild("roundId")
-        .equalTo(id)
-        .on("value", (snap) => {
-            let results = [];
-            snap.forEach((child) => results.push(child.val()));
-            if (!results.length) {
-            document.getElementById("admin-leaderboard").innerHTML = "<li>No results yet.</li>";
-            return;
-            }
-            results.sort((a, b) => {
-            if (b.score === a.score) {
-                return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
-            }
-            return b.score - a.score;
-            });
-            document.getElementById("admin-leaderboard").innerHTML = results
-            .map(
-                (r, i) =>
-                `<li>${i + 1}. ${r.username}: ${r.score}/${total} (${(
-                    (r.score / total) *
-                    100
-                ).toFixed(0)}%) — ${r.date} ${r.time}</li>`
-            )
-            .join("");
-        });
+    let adminResults = [];
+    const ref = db.ref("results").orderByChild("roundId").equalTo(String(id));
+    adminResults = [];
+
+    ref.on("child_added", (childSnap) => {
+    adminResults.push(childSnap.val());
+    updateAdminLeaderboard();
     });
+
+    ref.on("child_removed", (childSnap) => {
+    adminResults = adminResults.filter(r => r.roundId !== String(id));
+    updateAdminLeaderboard();
+    });
+
+    function updateAdminLeaderboard() {
+    if (!adminResults.length) {
+        document.getElementById("admin-leaderboard").innerHTML = "<li>No results yet.</li>";
+        return;
+    }
+
+    adminResults.sort((a, b) => {
+        if (b.score === a.score) {
+        return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
+        }
+        return b.score - a.score;
+    });
+
+    document.getElementById("admin-leaderboard").innerHTML = adminResults
+        .map(
+        (r, i) =>
+            `<li>${i + 1}. ${r.username}: ${r.score}/${total} (${(
+            (r.score / total) * 100
+            ).toFixed(0)}%) — ${r.date} ${r.time}</li>`
+        )
+        .join("");
+    }
+
 
     loadTexts();
     </script>
