@@ -27,15 +27,18 @@
     let texts = [];
 
     async function loadTexts() {
-        const res = await fetch("data/texts.json");
-        texts = await res.json();
-        const select = document.getElementById("question-select");
-        texts.forEach(t => {
+    const res = await fetch("data/texts.json");
+    texts = await res.json();
+
+    const select = document.getElementById("question-select");
+    select.innerHTML = ""; // clear any old options
+
+    texts.forEach(t => {
         const opt = document.createElement("option");
         opt.value = t.id;
         opt.textContent = `${t.id}. ${t.title}`;
         select.appendChild(opt);
-        });
+    });
     }
 
     // Start a new round
@@ -43,7 +46,7 @@
     const textId = parseInt(document.getElementById("question-select").value);
     const duration = parseInt(document.getElementById("duration").value) || 30;
     const roundId = Date.now();
-    const startTime = Date.now(); // mark the moment round starts
+    const startTime = Date.now();
 
     db.ref("currentRound").set({
         id: roundId,
@@ -58,39 +61,53 @@
 
     // Reset round
     document.getElementById("reset-btn").addEventListener("click", () => {
-        db.ref("currentRound").remove();
-        document.getElementById("status").textContent = "🕒 Waiting for next round...";
+    db.ref("currentRound").remove();
+    document.getElementById("status").textContent = "🕒 Waiting for next round...";
+    document.getElementById("admin-leaderboard").innerHTML = "<li>No active round.</li>";
     });
 
-    // Live leaderboard
+    // =============================
+    // ✅ Live Leaderboard
+    // =============================
+
+    db.ref("currentRound").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (!data || !data.id || !data.textId) {
+        document.getElementById("admin-leaderboard").innerHTML = "<li>No active round.</li>";
+        return;
+    }
+
+    const { id, textId } = data;
+    const total = texts.find(t => t.id === textId)?.answers.length || 1;
+
     let adminResults = [];
     const ref = db.ref("results").orderByChild("roundId").equalTo(String(id));
-    adminResults = [];
 
     ref.on("child_added", (childSnap) => {
-    adminResults.push(childSnap.val());
-    updateAdminLeaderboard();
+        adminResults.push(childSnap.val());
+        updateAdminLeaderboard(adminResults, total);
     });
 
     ref.on("child_removed", (childSnap) => {
-    adminResults = adminResults.filter(r => r.roundId !== String(id));
-    updateAdminLeaderboard();
+        adminResults = adminResults.filter(r => r.roundId !== String(id));
+        updateAdminLeaderboard(adminResults, total);
+    });
     });
 
-    function updateAdminLeaderboard() {
-    if (!adminResults.length) {
+    function updateAdminLeaderboard(results, total) {
+    if (!results.length) {
         document.getElementById("admin-leaderboard").innerHTML = "<li>No results yet.</li>";
         return;
     }
 
-    adminResults.sort((a, b) => {
+    results.sort((a, b) => {
         if (b.score === a.score) {
         return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
         }
         return b.score - a.score;
     });
 
-    document.getElementById("admin-leaderboard").innerHTML = adminResults
+    document.getElementById("admin-leaderboard").innerHTML = results
         .map(
         (r, i) =>
             `<li>${i + 1}. ${r.username}: ${r.score}/${total} (${(
@@ -100,9 +117,10 @@
         .join("");
     }
 
-
+    // Load texts after defining everything
     loadTexts();
     </script>
+
 
 </body>
 </html>
