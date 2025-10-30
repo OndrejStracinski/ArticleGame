@@ -8,7 +8,7 @@
   {
     "id": 2,
     "title": "At the Zoo",
-    "text": "I went to the zoo. ___ elephant was eating ___ banana near ___ tree.",
+    "text": "___ elephant was eating ___ banana near ___ tree.",
     "answers": [["The", "An"], "a", "a"]
   },
   {
@@ -21,7 +21,7 @@
       "'A' is used before singular countable nouns when introducing one of many."
     ]
   },
-  
+
   {
     "id": 4,
     "title": "School Life",

@@ -37,28 +37,38 @@ select.blank {
   padding: 4px;
   font-size: 16px;
 }
-.correct {
-  color: green;
+.correct,
+.incorrect {
   font-weight: bold;
+  cursor: help;
+  position: relative;
 }
 
+.correct { color: green; }
 .incorrect {
   color: red;
-  font-weight: bold;
-  text-decoration: underline dotted red;
+  text-decoration: underline dotted;
 }
 
+/* Custom tooltip using data-tip (no native title) */
+.correct:hover::after,
 .incorrect:hover::after {
-  content: attr(title);
+  content: attr(data-tip);
   position: absolute;
+  top: 1.5em;
+  left: 0;
   background: #fff8dc;
+  color: #000;
   border: 1px solid #ccc;
-  padding: 4px 6px;
+  padding: 6px 8px;
   border-radius: 4px;
-  white-space: pre-wrap;
+  white-space: pre-wrap;       /* allow newlines */
   z-index: 10;
-  max-width: 300px;
+  width: max-content;
+  max-width: 320px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+
 
 .answer-review {
   text-align: left;

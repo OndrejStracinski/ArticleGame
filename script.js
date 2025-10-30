@@ -47,51 +47,87 @@ function createDropdown(index) {
   return html;
 }
 
+function escapeHtml(str) {
+  return (str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function submitAnswers() {
   let score = 0;
   let displayHtml = "";
   const parts = currentText.text.split("___");
 
+  // build colored, tooltip’d answer text
   for (let i = 0; i < currentText.answers.length; i++) {
-    const userAns = document.getElementById(`blank-${i}`).value.trim();
+    const userAns = (document.getElementById(`blank-${i}`).value || "").trim();
     const validAnswers = Array.isArray(currentText.answers[i])
       ? currentText.answers[i]
       : [currentText.answers[i]];
 
     const isCorrect = validAnswers.some(
-      opt => opt.toLowerCase() === userAns.toLowerCase()
+      opt => (opt || "").toLowerCase() === userAns.toLowerCase()
     );
     if (isCorrect) score++;
 
-    // Tooltip text for hover (all valid answers)
-    const tooltip = validAnswers.join(" / ");
-    // Optional explanation
+    // tooltip text = Correct answers + optional explanation
+    const correctList = validAnswers.join(" / ");
     const explanation =
       currentText.explanations && currentText.explanations[i]
-        ? `<div class="explanation">${currentText.explanations[i]}</div>`
+        ? `\nWhy: ${currentText.explanations[i]}`
         : "";
 
-    // Build colored span for the user's answer
+    const tooltipText = `Correct: ${correctList}${explanation}`;
+
     const colorClass = isCorrect ? "correct" : "incorrect";
-    const answerHtml = `<span class="${colorClass}" title="Correct: ${tooltip}">${userAns || "(blank)"}${explanation}</span>`;
+    // use data-tip to avoid native title tooltips & quoting issues
+    const safeTip = escapeHtml(tooltipText);
+    const safeUser = escapeHtml(userAns || "(blank)");
+
+    const answerHtml =
+      `<span class="${colorClass}" data-tip="${safeTip}">${safeUser}</span>`;
 
     displayHtml += parts[i] + answerHtml;
   }
 
-  // Add final text fragment (after last blank)
+  // tail fragment after last blank
   displayHtml += parts[parts.length - 1];
 
+  // save result
   const now = new Date();
   const date = now.toISOString().split("T")[0];
   const time = now.toLocaleTimeString();
 
   const result = {
-    username: username,
-    score: score,
-    date: date,
-    time: time,
+    username,
+    score,
+    date,
+    time,
     textId: currentText.id
   };
+
+  db.ref("results").push(result);
+
+  // show review + leaderboard
+  document.getElementById("game").style.display = "none";
+  document.getElementById("results").style.display = "block";
+  document.getElementById("score").textContent =
+    `${username}, your score: ${score}/${currentText.answers.length}`;
+
+  // clear any previous review block
+  const oldReview = document.querySelector(".answer-review");
+  if (oldReview) oldReview.remove();
+
+  const resultDisplay = document.createElement("div");
+  resultDisplay.classList.add("answer-review");
+  resultDisplay.innerHTML = `<h3>Your Answers:</h3><p>${displayHtml}</p>`;
+  document.getElementById("results").prepend(resultDisplay);
+
+  fetchLeaderboard(); // should already be the filtered-by-id version
+}
+
 
   // Save to Firebase
   db.ref("results").push(result);
@@ -116,19 +152,40 @@ function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
   leaderboardEl.innerHTML = "<li>Loading...</li>";
 
-  db.ref("results").once("value", snapshot => {
-    let results = [];
-    snapshot.forEach(child => {
-      results.push(child.val());
+  // Reference only results for the current text ID
+  db.ref("results")
+    .orderByChild("textId")
+    .equalTo(currentText.id)
+    .once("value", (snapshot) => {
+      let results = [];
+      snapshot.forEach((child) => {
+        results.push(child.val());
+      });
+
+      // Sort: highest score first, then by most recent time
+      results.sort((a, b) => {
+        if (b.score === a.score) {
+          return new Date(b.date + " " + b.time) - new Date(a.date + " " + a.time);
+        }
+        return b.score - a.score;
+      });
+
+      if (results.length === 0) {
+        leaderboardEl.innerHTML = "<li>No results yet for this exercise.</li>";
+        return;
+      }
+
+      // Display leaderboard title
+      leaderboardEl.innerHTML = `
+        <li><strong>Leaderboard for "${currentText.title}"</strong></li>
+        ${results
+          .map(
+            (r, index) =>
+              `<li>${index + 1}. ${r.username}: ${r.score} pts (${r.date} ${r.time})</li>`
+          )
+          .join("")}
+      `;
     });
-
-    // Sort by score descending
-    results.sort((a, b) => b.score - a.score);
-
-    leaderboardEl.innerHTML = results
-      .map(r => `<li>${r.username}: ${r.score} pts (${r.date} ${r.time})</li>`)
-      .join("");
-  });
 }
 
 function restartGame() {
