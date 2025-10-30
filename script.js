@@ -15,10 +15,37 @@ function startGame() {
   }
 
   document.getElementById("login").style.display = "none";
-  document.getElementById("game").style.display = "block";
-  
-  showRandomText();
+  document.getElementById("waiting").style.display = "block";
+
+  // Listen for when the admin picks a new question
+  db.ref("currentQuestion").on("value", async (snapshot) => {
+    const data = snapshot.val();
+    if (!data || !data.id) return; // no question yet
+
+    // load texts if not loaded
+    if (!texts.length) await loadTexts();
+
+    currentText = texts.find(t => t.id === data.id);
+    if (!currentText) return;
+
+    // Show the question to the player
+    document.getElementById("waiting").style.display = "none";
+    document.getElementById("game").style.display = "block";
+    showText(currentText);
+  });
 }
+
+function showText(textObj) {
+  document.getElementById("title").textContent = textObj.title;
+  const parts = textObj.text.split("___");
+  let html = "";
+  for (let i = 0; i < parts.length; i++) {
+    html += parts[i];
+    if (i < textObj.answers.length) html += createDropdown(i);
+  }
+  document.getElementById("text").innerHTML = html;
+}
+
 
 function showRandomText() {
   currentText = texts[Math.floor(Math.random() * texts.length)];
@@ -125,26 +152,27 @@ function submitAnswers() {
   resultDisplay.innerHTML = `<h3>Your Answers:</h3><p>${displayHtml}</p>`;
   document.getElementById("results").prepend(resultDisplay);
 
-  fetchLeaderboard(result); // should already be the filtered-by-id version
+  fetchLeaderboard(); // should already be the filtered-by-id version
 }
 
 
 
-function fetchLeaderboard(latestResult = null) {
+function fetchLeaderboard() {
   const leaderboardEl = document.getElementById("leaderboard");
-  leaderboardEl.innerHTML = "<li>Loading...</li>";
 
   db.ref("results")
     .orderByChild("textId")
     .equalTo(currentText.id)
-    .once("value", (snapshot) => {
+    .on("value", (snapshot) => {
       let results = [];
       snapshot.forEach((child) => results.push(child.val()));
 
-      // Add the current user's latest attempt immediately
-      if (latestResult) {
-        results.push(latestResult);
+      if (results.length === 0) {
+        leaderboardEl.innerHTML = "<li>No results yet for this exercise.</li>";
+        return;
       }
+
+      const total = currentText.answers.length;
 
       // Sort: highest score first, then newest
       results.sort((a, b) => {
@@ -154,34 +182,24 @@ function fetchLeaderboard(latestResult = null) {
         return b.score - a.score;
       });
 
-      if (results.length === 0) {
-        leaderboardEl.innerHTML = "<li>No results yet for this exercise.</li>";
-        return;
-      }
-
-      // Find the total number of questions in this text
-      const total = currentText.answers.length;
-
       leaderboardEl.innerHTML = `
-        <li><strong>Leaderboard for "${currentText.title}"</strong></li>
+        <li><strong>Live Leaderboard for "${currentText.title}"</strong></li>
         ${results
           .map((r, i) => {
             const textObj = texts.find((t) => t.id === r.textId);
             const title = textObj ? textObj.title : "Unknown Text";
-            const pct = ((r.score / total) * 100).toFixed(0); // dynamic %
+            const pct = ((r.score / total) * 100).toFixed(0);
             const isYou =
-              r.username.toLowerCase() === username.toLowerCase() &&
-              r.date === latestResult?.date &&
-              r.time === latestResult?.time;
-
+              r.username.toLowerCase() === username.toLowerCase();
             return `<li ${
               isYou ? 'class="highlighted"' : ""
-            }>${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time} — <em>${title}</em></li>`;
+            }>${i + 1}. ${r.username}: ${r.score}/${total} (${pct}%) — ${r.date} ${r.time}</li>`;
           })
           .join("")}
       `;
     });
 }
+
 
 
 

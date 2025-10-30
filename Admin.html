@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Control - English Articles Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="container">
+    <h1>👩‍🏫 Admin Control</h1>
+    <p>Select a question to broadcast to all players:</p>
+    <select id="question-select"></select>
+    <button id="emit-btn">Start Question</button>
+    <p id="status"></p>
+    <h3>Live Leaderboard</h3>
+    <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
+    <button id="reset-btn">Reset / Next Round</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+  <script>
+    let texts = [];
+
+    async function loadTexts() {
+      const res = await fetch("data/texts.json");
+      texts = await res.json();
+      const select = document.getElementById("question-select");
+      texts.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t.id;
+        opt.textContent = `${t.id}. ${t.title}`;
+        select.appendChild(opt);
+      });
+    }
+
+    document.getElementById("emit-btn").addEventListener("click", () => {
+      const id = parseInt(document.getElementById("question-select").value);
+      db.ref("currentQuestion").set({ id });
+      document.getElementById("status").textContent =
+        `✅ Question ${id} broadcasted (${texts.find(t => t.id === id).title})`;
+    });
+
+    loadTexts();
+
+    document.getElementById("reset-btn").addEventListener("click", () => {
+    db.ref("currentQuestion").remove();
+    document.getElementById("status").textContent = "🕒 Waiting for next question...";
+    });
+
+    let currentId = null;
+
+    db.ref("currentQuestion").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (!data || !data.id) {
+        currentId = null;
+        document.getElementById("admin-leaderboard").innerHTML =
+        "<li>Waiting for a question...</li>";
+        return;
+    }
+
+    currentId = data.id;
+    document.getElementById("status").textContent =
+        `📢 Current Question: ${data.id}. ${
+        texts.find((t) => t.id === data.id)?.title || ""
+        }`;
+
+    updateLeaderboardLive();
+    });
+
+    function updateLeaderboardLive() {
+    const leaderboardEl = document.getElementById("admin-leaderboard");
+
+    db.ref("results")
+        .orderByChild("textId")
+        .equalTo(currentId)
+        .on("value", (snapshot) => {
+        let results = [];
+        snapshot.forEach((child) => results.push(child.val()));
+
+        if (!results.length) {
+            leaderboardEl.innerHTML = "<li>No results yet.</li>";
+            return;
+        }
+
+        const total = texts.find((t) => t.id === currentId)?.answers.length || 1;
+
+        results.sort((a, b) => {
+            if (b.score === a.score) {
+            return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
+            }
+            return b.score - a.score;
+        });
+
+        leaderboardEl.innerHTML = results
+            .map(
+            (r, i) =>
+                `<li>${i + 1}. ${r.username}: ${r.score}/${total} (${(
+                (r.score / total) *
+                100
+                ).toFixed(0)}%) — ${r.date} ${r.time}</li>`
+            )
+            .join("");
+        });
+    }
+  </script>
+</body>
+</html>
