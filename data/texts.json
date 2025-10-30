@@ -8,7 +8,25 @@
   {
     "id": 2,
     "title": "At the Zoo",
-    "text": "___ elephant was eating ___ banana near ___ tree.",
-    "answers": ["The", "a", "a"]
+    "text": "I went to the zoo. ___ elephant was eating ___ banana near ___ tree.",
+    "answers": [["The", "An"], "a", "a"]
+  },
+  {
+    "id": 3,
+    "title": "Healthy Habits",
+    "text": "___ water is important for health. I drink ___ glass of water every morning.",
+    "answers": ["—", "a"]
+  },
+  {
+    "id": 4,
+    "title": "School Life",
+    "text": "___ students in our class love ___ teacher because she is kind.",
+    "answers": ["—", "the"]
+  },
+  {
+    "id": 5,
+    "title": "Music Practice",
+    "text": "___ music helps me concentrate, but ___ silence can be relaxing too.",
+    "answers": ["—", "—"]
   }
 ]
