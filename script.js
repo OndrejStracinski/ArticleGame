@@ -13,7 +13,7 @@ function startGame() {
     alert("Please enter your name!");
     return;
   }
-  
+
   document.getElementById("login").style.display = "none";
   document.getElementById("game").style.display = "block";
   
@@ -44,9 +44,46 @@ function submitAnswers() {
     }
   });
 
+  const now = new Date();
+  const date = now.toISOString().split("T")[0];
+  const time = now.toLocaleTimeString();
+
+  const result = {
+    username: username,
+    score: score,
+    date: date,
+    time: time,
+    textId: currentText.id
+  };
+
+  // Save to Firebase
+  db.ref("results").push(result);
+
+  // Show results
   document.getElementById("game").style.display = "none";
   document.getElementById("results").style.display = "block";
   document.getElementById("score").textContent = `${username}, your score: ${score}/${currentText.answers.length}`;
+
+  fetchLeaderboard();
+}
+
+function fetchLeaderboard() {
+  const leaderboardEl = document.getElementById("leaderboard");
+  leaderboardEl.innerHTML = "<li>Loading...</li>";
+
+  db.ref("results").once("value", snapshot => {
+    let results = [];
+    snapshot.forEach(child => {
+      results.push(child.val());
+    });
+
+    // Sort by score descending
+    results.sort((a, b) => b.score - a.score);
+
+    leaderboardEl.innerHTML = results
+      .map(r => `<li>${r.username}: ${r.score} pts (${r.date} ${r.time})</li>`)
+      .join("");
+  });
 }
 
 function restartGame() {
