@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Morning Routine",
+    "text": "I made ___ cup of coffee and read ___ newspaper before going to ___ office.",
+    "answers": ["a", "the", "the"]
+  },
+  {
+    "id": 2,
+    "title": "At the Zoo",
+    "text": "___ elephant was eating ___ banana near ___ tree.",
+    "answers": ["The", "a", "a"]
+  }
+]
