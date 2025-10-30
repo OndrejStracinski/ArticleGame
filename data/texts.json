@@ -9,7 +9,7 @@
     "id": 2,
     "title": "At the Zoo",
     "text": "___ elephant was eating ___ banana near ___ tree.",
-    "answers": [["The", "An"], "a", "a"]
+    "answers": [["the", "an"], "a", "a"]
   },
   {
     "id": 3,
@@ -26,7 +26,7 @@
     "id": 4,
     "title": "School Life",
     "text": "___ students in our class love ___ teacher because she is kind.",
-    "answers": [["—", "The"], "the"],
+    "answers": [["—", "the"], "the"],
     "explanations": [
       "Both 'The' and no article are acceptable. 'The' defines a specific group, while no article generalizes plural nouns.",
       "We use 'the' because both speaker and listener know which teacher we’re referring to."

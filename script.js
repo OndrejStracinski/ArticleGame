@@ -37,7 +37,7 @@ function showRandomText() {
 
 function createDropdown(index) {
   // Define possible article choices
-  const options = ["—", "a", "an", "the", "A", "An", "The"];
+  const options = ["—", "a", "an", "the"];
   let html = `<select class="blank" id="blank-${index}">`;
   html += `<option value="">(select)</option>`;
   options.forEach(opt => {
