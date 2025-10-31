@@ -7,34 +7,46 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="container">
-    <h1>🧩 English Articles Game</h1>
-    
-    <div id="login">
-      <input type="text" id="username" placeholder="Enter your name" />
-      <button id="start-btn">Start Game</button>
+<body>
+  <div id="main-layout">
+    <!-- Main Game Area -->
+    <div id="container">
+      <h1>🧩 English Articles Game</h1>
+      
+      <div id="login">
+        <input type="text" id="username" placeholder="Enter your name" />
+        <button id="start-btn">Start Game</button>
+      </div>
+
+      <div id="waiting" style="display:none;">
+        <h2>Waiting for the teacher to start...</h2>
+        <p>Stay tuned! The game will start soon.</p>
+      </div>
+
+      <div id="game" style="display:none;">
+        <h2 id="title"></h2>
+        <p id="timer" style="font-weight:bold; color:#d33;"></p>
+        <p id="text"></p>
+        <button id="submit-btn">Submit Answers</button>
+      </div>
+
+      <div id="results" style="display:none;">
+        <h2>Results</h2>
+        <p id="score"></p>
+        <h3>Leaderboard</h3>
+        <ul id="leaderboard"></ul>
+        <button id="restart-btn">Play Again</button>
+      </div>
     </div>
 
-    <div id="waiting" style="display:none;">
-      <h2>Waiting for the admin to start...</h2>
-      <p>Stay tuned! The game will start soon.</p>
-    </div>
-
-    <div id="game" style="display:none;">
-      <h2 id="title"></h2>
-      <p id="timer" style="font-weight:bold; color:#d33;"></p>
-      <p id="text"></p>
-      <button id="submit-btn">Submit Answers</button>
-    </div>
-
-    <div id="results" style="display:none;">
-      <h2>Results</h2>
-      <p id="score"></p>
-      <h3>Leaderboard</h3>
-      <ul id="leaderboard"></ul>
-      <button id="restart-btn">Play Again</button>
-    </div>
+    <!-- Sidebar: Global Leaderboard -->
+    <aside id="global-sidebar" style="display:none;">
+      <h3>🌍 Global Leaderboard</h3>
+      <ul id="global-leaderboard"><li>Loading...</li></ul>
+    </aside>
   </div>
+</body>
+
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

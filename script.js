@@ -22,6 +22,10 @@ function startGame() {
   document.getElementById("login").style.display = "none";
   document.getElementById("waiting").style.display = "block";
 
+  document.getElementById("global-sidebar").style.display = "block";
+  updateGlobalLeaderboardForPlayers();
+  attachGlobalLeaderboardListener();
+
   // Watch current round from Firebase
   db.ref("currentRound").on("value", async (snapshot) => {
     const data = snapshot.val();
@@ -306,3 +310,69 @@ document.getElementById("submit-btn").addEventListener("click", submitAnswers);
 document.getElementById("restart-btn").addEventListener("click", restartGame);
 
 loadTexts();
+
+
+// ====================================
+// 🌍 GLOBAL LEADERBOARD FOR PLAYERS
+// ====================================
+
+let globalListener = null;
+
+function updateGlobalLeaderboardForPlayers() {
+  const globalEl = document.getElementById("global-leaderboard");
+
+  db.ref("results").once("value", (snapshot) => {
+    const results = snapshot.val();
+    if (!results) {
+      globalEl.innerHTML = "<li>No results yet.</li>";
+      return;
+    }
+
+    const userStats = {};
+
+    for (const key in results) {
+      const r = results[key];
+      const textObj = texts.find(t => t.id === r.textId);
+      const total = textObj ? textObj.answers.length : 1;
+
+      if (!userStats[r.username]) {
+        userStats[r.username] = { correct: 0, total: 0, rounds: new Set() };
+      }
+
+      userStats[r.username].correct += r.score;
+      userStats[r.username].total += total;
+      userStats[r.username].rounds.add(r.roundId);
+    }
+
+    const table = Object.entries(userStats).map(([username, data]) => {
+      const pct = ((data.correct / data.total) * 100).toFixed(1);
+      return {
+        username,
+        correct: data.correct,
+        total: data.total,
+        pct,
+        rounds: data.rounds.size
+      };
+    });
+
+    // Sort by total correct, then percentage
+    table.sort((a, b) => b.correct - a.correct || b.pct - a.pct);
+
+    globalEl.innerHTML = table
+      .map(
+        (u, i) => `
+        <li ${username && u.username.toLowerCase() === username.toLowerCase() ? 'class="highlighted"' : ''}>
+          ${i + 1}. <strong>${u.username}</strong> — 
+          ${u.correct}/${u.total} (${u.pct}%) — ${u.rounds} rounds
+        </li>`
+      )
+      .join("");
+  });
+}
+
+function attachGlobalLeaderboardListener() {
+  if (globalListener) globalListener.off();
+  globalListener = db.ref("results");
+  globalListener.on("child_added", updateGlobalLeaderboardForPlayers);
+  globalListener.on("child_removed", updateGlobalLeaderboardForPlayers);
+}

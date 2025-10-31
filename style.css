@@ -89,3 +89,33 @@ select.blank {
   display: block;
 }
 
+#main-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#container {
+  flex: 1;
+  max-width: 700px;
+}
+
+#global-sidebar {
+  width: 250px;
+  margin-left: 20px;
+  padding: 10px;
+  background: #f8f8f8;
+  border-left: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9em;
+  position: sticky;
+  top: 10px;
+  height: fit-content;
+}
+
+#global-leaderboard li {
+  border-bottom: 1px solid #ddd;
+  padding: 4px 0;
+}
+
