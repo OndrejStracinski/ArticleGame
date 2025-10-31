@@ -39,11 +39,11 @@
     "answers": ["—", "—"]
   },
 
-
+[
   {
     "id": 6,
     "title": "Weekend Hike",
-    "text": "Last Saturday, Brano and Martin decided to climb ___ mountain near their town. They packed ___ backpack with food and water and started early in ___ morning. After a few hours, they reached ___ top and enjoyed ___ breathtaking view of the valley below.",
+    "text": "Last Saturday, Alex and Nora decided to climb ___ mountain near their town. They packed ___ backpack with food and water and started early in ___ morning. After a few hours, they reached ___ top and enjoyed ___ breathtaking view of the valley below.",
     "answers": ["a", "a", "the", "the", "a"],
     "explanations": [
       "'A' is used before singular countable nouns when introducing one for the first time — this is the first mention of the mountain.",
@@ -56,33 +56,33 @@
   {
     "id": 7,
     "title": "Cooking Together",
-    "text": "Ibrahim invited Martin and Brano to his house to cook dinner. They decided to make ___ big pot of soup and bake ___ loaf of bread. Brano chopped ___ onions, while Martin mixed ___ dough. When everything was ready, they sat at ___ table and enjoyed the meal together.",
+    "text": "Leila invited Alex and Nora to her house to cook dinner. They decided to make ___ big pot of soup and bake ___ loaf of bread. Nora chopped ___ onions, while Alex mixed ___ dough. When everything was ready, they sat at ___ table and enjoyed the meal together.",
     "answers": ["a", "a", "the", "the", "the"],
     "explanations": [
       "'A' introduces 'big pot' — a single, unspecified pot they used for cooking.",
       "'A' is used before 'loaf' because it’s one loaf among many possible loaves.",
       "'The' is used before 'onions' because they are specific ones mentioned in the recipe context — not onions in general.",
-      "'The' appears again with 'dough' since it refers to the specific dough Martin prepared.",
-      "'The' is used with 'table' because it’s clear which table — the one in Ibrahim’s house."
+      "'The' appears again with 'dough' since it refers to the specific dough Alex prepared.",
+      "'The' is used with 'table' because it’s clear which table — the one in Leila’s house."
     ]
   },
   {
     "id": 8,
     "title": "A Rainy Afternoon",
-    "text": "On ___ rainy afternoon, Brano sat by ___ window with ___ cup of tea. He watched ___ children playing under ___ umbrellas in the park and smiled at their joy.",
+    "text": "On ___ rainy afternoon, Nora sat by ___ window with ___ cup of tea. She watched ___ children playing under ___ umbrellas in the park and smiled at their joy.",
     "answers": ["a", "the", "a", "the", "—"],
     "explanations": [
       "'A' introduces 'rainy afternoon' as one example of many possible afternoons.",
-      "'The' specifies the window Brano was sitting by — it’s known and specific in his house.",
+      "'The' specifies the window Nora was sitting by — it’s known and specific in her house.",
       "'A' introduces a single, nonspecific cup of tea.",
-      "'The' identifies the children — specific ones visible to Brano at that moment.",
+      "'The' identifies the children — specific ones visible to Nora at that moment.",
       "No article is needed before 'umbrellas' since it’s plural and general (not specific umbrellas)."
     ]
   },
   {
     "id": 9,
     "title": "Trip to the Market",
-    "text": "Martin woke up early to visit ___ local market. He bought ___ bunch of bananas, ___ loaf of bread, and ___ bottle of milk. Later, he met Ibrahim near ___ bakery where they shared some snacks.",
+    "text": "Daniel woke up early to visit ___ local market. He bought ___ bunch of bananas, ___ loaf of bread, and ___ bottle of milk. Later, he met Leila near ___ bakery where they shared some snacks.",
     "answers": ["the", "a", "a", "a", "the"],
     "explanations": [
       "'The' is used with 'local market' because both speaker and listener know which one — it’s specific to the town.",
@@ -95,7 +95,7 @@
   {
     "id": 10,
     "title": "Study Session",
-    "text": "Brano and Ibrahim met at ___ library to prepare for ___ exam. They chose ___ quiet corner near ___ window so they could read in natural light. Martin later joined them with ___ stack of notes he had prepared.",
+    "text": "Nora and Leila met at ___ library to prepare for ___ exam. They chose ___ quiet corner near ___ window so they could read in natural light. Daniel later joined them with ___ stack of notes he had prepared.",
     "answers": ["the", "an", "a", "the", "a"],
     "explanations": [
       "'The' is used before 'library' because it’s a specific one known to both — likely their local library.",
@@ -104,7 +104,9 @@
       "'The' is used with 'window' because it’s specific — the one near where they sat.",
       "'A' introduces 'stack of notes' since it’s one unspecified group of notes."
     ]
-  },
+  }
+]
+
 
   {
   "id": 11,
