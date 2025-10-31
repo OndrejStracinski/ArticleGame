@@ -10,6 +10,8 @@ async function loadTexts() {
 
 let currentRound = null;
 
+let hasPlayedRounds = new Set();
+
 function startGame() {
   username = document.getElementById("username").value.trim();
   if (!username) {
@@ -25,6 +27,7 @@ function startGame() {
     const data = snapshot.val();
 
     if (!data || !data.id || !data.textId) {
+      // No active round
       currentRound = null;
       document.getElementById("game").style.display = "none";
       document.getElementById("results").style.display = "none";
@@ -34,22 +37,44 @@ function startGame() {
       return;
     }
 
-    // Active round
     if (!texts.length) await loadTexts();
     const textObj = texts.find((t) => t.id === data.textId);
     if (!textObj) return;
 
+    const now = Date.now();
+    const endTime = data.startTime + data.duration * 1000;
+    if (now > endTime) {
+      currentRound = null;
+      document.getElementById("game").style.display = "none";
+      document.getElementById("results").style.display = "none";
+      document.getElementById("waiting").style.display = "block";
+      document.getElementById("waiting").innerHTML = `
+        <h2>Round ended!</h2>
+        <p>Wait for the teacher to start the next round.</p>`;
+      return;
+    }
+
+    if (hasPlayedRounds.has(String(data.id))) {
+      currentRound = data;
+      document.getElementById("game").style.display = "none";
+      document.getElementById("results").style.display = "block";
+      document.getElementById("waiting").style.display = "none";
+      document.getElementById("score").textContent =
+        `${username}, you already played this round! Wait for the next one.`;
+      fetchLeaderboard();
+      return;
+    }
+
     currentRound = data;
     currentText = textObj;
-
     document.getElementById("waiting").style.display = "none";
     document.getElementById("results").style.display = "none";
     document.getElementById("game").style.display = "block";
     showText(currentText);
     fetchLeaderboard();
-
     startCountdown(data.startTime, data.duration);
   });
+
 
 }
 
@@ -182,6 +207,9 @@ function submitAnswers() {
   };
 
   db.ref("results").push(result);
+  
+  hasPlayedRounds.add(String(currentRound.id));
+
   // show review + leaderboard
   document.getElementById("game").style.display = "none";
   document.getElementById("results").style.display = "block";
