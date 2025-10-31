@@ -18,6 +18,9 @@
     <h3>Live Leaderboard</h3>
     <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
 
+    <h3>🌍 Global Leaderboard (All Rounds)</h3>
+    <ul id="global-leaderboard"><li>Loading global stats...</li></ul>
+
     <button id="reset-btn">Reset / Next Round</button>
   </div>
 
@@ -117,6 +120,71 @@
         )
         .join("");
     }
+
+    // ====================================
+    // 🌍 GLOBAL LEADERBOARD (All rounds)
+    // ====================================
+
+    function updateGlobalLeaderboard() {
+    const globalEl = document.getElementById("global-leaderboard");
+
+    db.ref("results").once("value", (snapshot) => {
+        const results = snapshot.val();
+        if (!results) {
+        globalEl.innerHTML = "<li>No results yet.</li>";
+        return;
+        }
+
+        const userStats = {}; // { username: { correct, total, rounds } }
+
+        for (const key in results) {
+        const r = results[key];
+        const textObj = texts.find(t => t.id === r.textId);
+        const total = textObj ? textObj.answers.length : 1;
+
+        if (!userStats[r.username]) {
+            userStats[r.username] = { correct: 0, total: 0, rounds: new Set() };
+        }
+
+        userStats[r.username].correct += r.score;
+        userStats[r.username].total += total;
+        userStats[r.username].rounds.add(r.roundId);
+        }
+
+        const table = Object.entries(userStats).map(([username, data]) => {
+        const percentage = ((data.correct / data.total) * 100).toFixed(1);
+        return {
+            username,
+            correct: data.correct,
+            total: data.total,
+            percentage: percentage,
+            roundsPlayed: data.rounds.size
+        };
+        });
+
+        table.sort((a, b) => b.percentage - a.percentage || b.correct - a.correct);
+
+        globalEl.innerHTML = table
+        .map(
+            (u, i) => `
+            <li>
+            ${i + 1}. <strong>${u.username}</strong> — 
+            ${u.correct}/${u.total} correct (${u.percentage}%) —
+            ${u.roundsPlayed} rounds played
+            </li>`
+        )
+        .join("");
+    });
+    }
+
+    // Refresh global leaderboard when new round starts
+    db.ref("currentRound").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.id) {
+        updateGlobalLeaderboard();
+    }
+    });
+
 
     // Load texts after defining everything
     loadTexts();
