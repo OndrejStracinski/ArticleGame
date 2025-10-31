@@ -18,10 +18,14 @@
     <h3>Live Leaderboard</h3>
     <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
 
+    <button id="reset-btn">Reset / Next Round</button>
+
     <h3>🌍 Global Leaderboard (All Rounds)</h3>
     <ul id="global-leaderboard"><li>Loading global stats...</li></ul>
 
-    <button id="reset-btn">Reset / Next Round</button>
+    <button id="archive-btn">📦 Archive & Reset Global Leaderboard</button>
+    <p id="archive-status" style="font-style: italic; color: #555;"></p>
+
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -202,6 +206,58 @@
     updateGlobalLeaderboard();
     attachGlobalListener();
     });
+
+
+    // ====================================
+    // 📦 ARCHIVE & RESET GLOBAL LEADERBOARD
+    // ====================================
+
+    document.getElementById("archive-btn").addEventListener("click", async () => {
+    const confirmAction = confirm(
+        "Are you sure you want to archive and reset the global leaderboard?\n\n" +
+        "This will download the archive JSON file to your computer and delete all results from Firebase."
+    );
+    if (!confirmAction) return;
+
+    document.getElementById("archive-status").textContent = "Archiving...";
+
+    try {
+        // Step 1: Fetch all results
+        const snapshot = await db.ref("results").once("value");
+        const results = snapshot.val() || {};
+
+        // Step 2: Create archive data
+        const archive = {
+        timestamp: new Date().toISOString(),
+        totalEntries: Object.keys(results).length,
+        results
+        };
+
+        // Step 3: Trigger browser download
+        const blob = new Blob([JSON.stringify(archive, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const dateStr = new Date().toISOString().replace(/[:.]/g, "-");
+        a.href = url;
+        a.download = `leaderboard-archive-${dateStr}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        // Step 4: Clear results from Firebase
+        await db.ref("results").remove();
+
+        document.getElementById("archive-status").textContent =
+        "✅ Leaderboard archived and reset successfully.";
+        
+        // Optional: Clear visible leaderboard
+        document.getElementById("global-leaderboard").innerHTML = "<li>Leaderboard reset.</li>";
+    } catch (err) {
+        console.error(err);
+        document.getElementById("archive-status").textContent =
+        "❌ Error archiving leaderboard. See console for details.";
+    }
+    });
+
 
 
     // Load texts after defining everything
