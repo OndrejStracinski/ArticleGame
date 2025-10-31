@@ -37,5 +37,156 @@
     "title": "Music Practice",
     "text": "___ music helps me concentrate, but ___ silence can be relaxing too.",
     "answers": ["—", "—"]
-  }
+  },
+
+
+  {
+    "id": 6,
+    "title": "Weekend Hike",
+    "text": "Last Saturday, Brano and Martin decided to climb ___ mountain near their town. They packed ___ backpack with food and water and started early in ___ morning. After a few hours, they reached ___ top and enjoyed ___ breathtaking view of the valley below.",
+    "answers": ["a", "a", "the", "the", "a"],
+    "explanations": [
+      "'A' is used before singular countable nouns when introducing one for the first time — this is the first mention of the mountain.",
+      "'A' is used again because we’re referring to one unspecified backpack, not a specific one.",
+      "'The' is used before 'morning' when we specify which morning (Saturday’s).",
+      "'The' identifies a specific top — the one belonging to that mountain.",
+      "'A' is used to introduce the view as one example among many possible views."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Cooking Together",
+    "text": "Ibrahim invited Martin and Brano to his house to cook dinner. They decided to make ___ big pot of soup and bake ___ loaf of bread. Brano chopped ___ onions, while Martin mixed ___ dough. When everything was ready, they sat at ___ table and enjoyed the meal together.",
+    "answers": ["a", "a", "the", "the", "the"],
+    "explanations": [
+      "'A' introduces 'big pot' — a single, unspecified pot they used for cooking.",
+      "'A' is used before 'loaf' because it’s one loaf among many possible loaves.",
+      "'The' is used before 'onions' because they are specific ones mentioned in the recipe context — not onions in general.",
+      "'The' appears again with 'dough' since it refers to the specific dough Martin prepared.",
+      "'The' is used with 'table' because it’s clear which table — the one in Ibrahim’s house."
+    ]
+  },
+  {
+    "id": 8,
+    "title": "A Rainy Afternoon",
+    "text": "On ___ rainy afternoon, Brano sat by ___ window with ___ cup of tea. He watched ___ children playing under ___ umbrellas in the park and smiled at their joy.",
+    "answers": ["a", "the", "a", "the", "—"],
+    "explanations": [
+      "'A' introduces 'rainy afternoon' as one example of many possible afternoons.",
+      "'The' specifies the window Brano was sitting by — it’s known and specific in his house.",
+      "'A' introduces a single, nonspecific cup of tea.",
+      "'The' identifies the children — specific ones visible to Brano at that moment.",
+      "No article is needed before 'umbrellas' since it’s plural and general (not specific umbrellas)."
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Trip to the Market",
+    "text": "Martin woke up early to visit ___ local market. He bought ___ bunch of bananas, ___ loaf of bread, and ___ bottle of milk. Later, he met Ibrahim near ___ bakery where they shared some snacks.",
+    "answers": ["the", "a", "a", "a", "the"],
+    "explanations": [
+      "'The' is used with 'local market' because both speaker and listener know which one — it’s specific to the town.",
+      "'A' introduces 'bunch of bananas' — one group among many possible groups.",
+      "'A' is used again with 'loaf of bread' for the same reason — introducing one loaf.",
+      "'A' is used with 'bottle of milk' as one item among many possible bottles.",
+      "'The' specifies the bakery they both know — a definite, shared location."
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Study Session",
+    "text": "Brano and Ibrahim met at ___ library to prepare for ___ exam. They chose ___ quiet corner near ___ window so they could read in natural light. Martin later joined them with ___ stack of notes he had prepared.",
+    "answers": ["the", "an", "a", "the", "a"],
+    "explanations": [
+      "'The' is used before 'library' because it’s a specific one known to both — likely their local library.",
+      "'An' is used before 'exam' since the word begins with a vowel sound, and it refers to one of several possible exams.",
+      "'A' introduces 'quiet corner' as a single example of many possible corners.",
+      "'The' is used with 'window' because it’s specific — the one near where they sat.",
+      "'A' introduces 'stack of notes' since it’s one unspecified group of notes."
+    ]
+  },
+
+  {
+  "id": 11,
+  "title": "Water is wet",
+  "text": "___ water is wet. ___ sky is blue.",
+  "answers": ["—", "the"],
+  "explanations": [
+    "Water is a material.",
+    "When referring to the sky we mean our specific sky of which there is only one of."
+  ]
+  },
+
+  {
+  "id": 12,
+  "title": "Long",
+  "text": "One Friday night, Martin sat at ___ computer, ready for ___ long gaming session. He had installed ___ new update for ___ online game that he loved to play with Brano and Ibrahim. When he joined ___ voice chat, he heard Brano talking about ___ new strategy. Ibrahim was already choosing ___ champion on ___ screen, and Martin quickly picked ___ favorite character. After ___ few minutes, ___ match began. At first, everything went smoothly. Brano bought ___ sword, Ibrahim prepared ___ shield, and Martin grabbed ___ potion. Then ___ enemy team appeared near ___ river. Brano shouted, 'Watch ___ left side!' while Ibrahim placed ___ ward for vision. Martin attacked ___ opponent but missed ___ first hit. It was ___ small mistake, yet it changed ___ rhythm of ___ fight. Brano tried to help, but ___ second opponent joined, and suddenly they were outnumbered. Martin’s character lost half of ___ health bar. After retreating to ___ base, he decided to buy ___ new item to increase damage. Meanwhile, Ibrahim suggested ___ safer plan: wait for ___ next wave of minions and take ___ dragon objective together. Everyone agreed, so they walked down ___ path toward ___ river again. Brano started ___ battle bravely, and Martin followed with ___ strong spell. Unfortunately, ___ dragon turned its attention toward them, and ___ enemy team appeared once more. In ___ chaos, Martin pressed ___ wrong key and used ___ healing potion too early. 'That was ___ waste!' Brano said, laughing. Martin sighed but smiled—he knew it was only ___ game. After ___ long fight, Ibrahim managed to defeat ___ dragon, giving their team ___ big advantage. They pushed toward ___ tower, destroying ___ defenses one by one. Finally, after twenty minutes, their team won ___ match. Everyone cheered in ___ voice chat. Martin leaned back in ___ chair and said, 'That was ___ great game, even with ___ small mistakes.' Brano replied, 'Every victory needs ___ bit of teamwork and ___ bit of luck!' Ibrahim added, 'And maybe ___ snack break next time.' They all laughed, promising to meet again for another match next week.",
+  "answers": [
+    "the","a","a","the","the","a","a","the","his","a",
+    "the","a","a","a","the","the","the","an","the","the",
+    "a","the","the","a","a","the","a","the","a","the",
+    "a","the","the","the","a","the","the","the","a","the",
+    "a","the","the","a","a","a","a","a","a","a",
+    "a","a","a"
+  ],
+  "explanations": [
+    "'The' computer is specific—Martin’s own.",
+    "'A' long session introduces a nonspecific period of time.",
+    "'A' new update—one of many possible updates.",
+    "'The' online game—specific one they all know.",
+    "'The' voice chat—particular channel used by the friends.",
+    "'A' new strategy—introduced for the first time.",
+    "'A' champion—one choice among many in the game.",
+    "'The' screen—specific device visible to Ibrahim.",
+    "'His' favorite character—possessive, referring to Martin’s usual choice.",
+    "'A' few minutes—one example of an indefinite quantity.",
+    "'The' match—specific one just begun.",
+    "'A' sword—one item among many purchasable weapons.",
+    "'A' shield—introduces another item.",
+    "'A' potion—singular, unspecified healing item.",
+    "'The' enemy team—specific group they are facing.",
+    "'The' river—definite location on the game map.",
+    "'The' left side—specific direction in context.",
+    "'An' opponent—begins with a vowel sound, first mention.",
+    "'The' first hit—ordinal number requires 'the'.",
+    "'The' rhythm—specific pattern affected by the mistake.",
+    "'A' small mistake—indefinite, introducing new detail.",
+    "'The' fight—specific one they are describing.",
+    "'The' second opponent—ordinal again requires 'the'.",
+    "'A' health bar—introducing one aspect of Martin’s screen.",
+    "'A' new item—singular, indefinite, first mention.",
+    "'A' safer plan—introduces new idea proposed by Ibrahim.",
+    "'The' next wave—sequence-based, hence 'the'.",
+    "'A' dragon objective—one among several possible goals.",
+    "'The' path—specific route toward the river.",
+    "'A' battle—first mention of that encounter.",
+    "'The' river—same one as earlier, definite reference.",
+    "'The' dragon—specific creature already identified.",
+    "'The' enemy team—same one as before.",
+    "'A' chaos—used to introduce an abstract situation.",
+    "'The' wrong key—specific key he pressed incorrectly.",
+    "'The' healing potion—specific one previously bought.",
+    "'A' waste—one instance, nonspecific exclamation.",
+    "'The' game—refers to that specific match.",
+    "'A' long fight—introduces duration of the event.",
+    "'The' dragon—specific creature they defeated.",
+    "'A' big advantage—new concept introduced.",
+    "'The' tower—specific objective ahead.",
+    "'The' defenses—specific items protecting the tower.",
+    "'A' match—one of many possible matches.",
+    "'The' voice chat—specific platform used.",
+    "'A' chair—introduces object Martin leaned back in.",
+    "'A' great game—nonspecific but newly described.",
+    "'A' bit of teamwork—introduces a general portion.",
+    "'A' bit of luck—parallel construction with 'a bit of'.",
+    "'A' snack break—new activity introduced humorously.",
+    "'A' match—one more instance for the future plan.",
+    "'A' week—one indefinite week ahead.",
+    "'A' good ending to their night—indefinite summary phrase."
+  ]
+}
+
+
 ]
+
+
