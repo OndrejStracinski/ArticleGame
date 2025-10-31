@@ -207,7 +207,7 @@ function submitAnswers() {
   };
 
   db.ref("results").push(result);
-  
+
   hasPlayedRounds.add(String(currentRound.id));
 
   // show review + leaderboard
@@ -297,8 +297,9 @@ function autoSubmitIfNotYet() {
 
 function restartGame() {
   document.getElementById("results").style.display = "none";
-  document.getElementById("login").style.display = "block";
+  document.getElementById("waiting").style.display = "block";
 }
+
 
 document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("submit-btn").addEventListener("click", submitAnswers);

@@ -13,6 +13,7 @@
     <input type="number" id="duration" placeholder="Seconds" value="30" min="5" style="width:80px;" />
     <button id="emit-btn">Start Round</button>
     <p id="status"></p>
+    <p id="admin-timer" style="font-weight:bold; color:#c33;"></p>
 
     <h3>Live Leaderboard</h3>
     <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
@@ -119,6 +120,47 @@
 
     // Load texts after defining everything
     loadTexts();
+
+    let adminTimerInterval = null;
+
+    function showAdminTimer(startTime, durationSec) {
+    clearInterval(adminTimerInterval);
+    const el = document.getElementById("admin-timer");
+    const endTime = startTime + durationSec * 1000;
+
+    function update() {
+        const now = Date.now();
+        const remaining = Math.max(0, Math.floor((endTime - now) / 1000));
+
+        if (remaining <= 0) {
+        el.textContent = "⏳ Round finished";
+        clearInterval(adminTimerInterval);
+        } else {
+        el.textContent = `⏰ Time left: ${remaining}s`;
+        }
+    }
+
+    update();
+    adminTimerInterval = setInterval(update, 1000);
+    }
+
+    // Hook this into your currentRound listener:
+    db.ref("currentRound").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (!data || !data.id || !data.textId) {
+        clearInterval(adminTimerInterval);
+        document.getElementById("admin-timer").textContent = "";
+        document.getElementById("admin-leaderboard").innerHTML =
+        "<li>No active round.</li>";
+        return;
+    }
+
+    // existing leaderboard logic...
+    showAdminTimer(data.startTime, data.duration);
+    });
+
+
+
     </script>
 
 
