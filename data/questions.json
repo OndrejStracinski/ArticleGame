@@ -188,5 +188,679 @@
         "explanation": "Vatican City is only about 0.44 km²."
       }
     ]
+  },
+  {
+    "id": 10,
+    "title": "Generative vs Discriminative Models",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the key difference between generative and discriminative models?",
+        "options": [
+          "Generative models classify data, discriminative models generate new data.",
+          "Generative models create new content, discriminative models classify existing data.",
+          "Both perform identical tasks.",
+          "Discriminative models use transformers, generative models do not."
+        ],
+        "answer": 1,
+        "explanation": "Generative models create new outputs; discriminative models classify or analyze existing data."
+      },
+      {
+        "question": "Which of the following is NOT a core output type of generative AI?",
+        "options": [
+          "Text generation",
+          "Image synthesis",
+          "Spreadsheet sorting",
+          "Code writing"
+        ],
+        "answer": 2,
+        "explanation": "Spreadsheet sorting is a traditional deterministic task, not generative AI output."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Transformer Fundamentals",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "The transformer architecture was introduced in the 2017 paper 'Attention Is All You Need.'",
+        "answer": true,
+        "explanation": "The transformer architecture was introduced by Google researchers in 2017."
+      },
+      {
+        "statement": "Transformers process tokens strictly sequentially like RNNs.",
+        "answer": false,
+        "explanation": "Transformers process tokens in parallel using self-attention."
+      },
+      {
+        "statement": "Next-token prediction is the core training objective of LLMs.",
+        "answer": true,
+        "explanation": "LLMs learn by predicting the next token in a sequence."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Embeddings Deep Dive",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What does a 768-dimensional embedding represent?",
+        "options": [
+          "768 different words",
+          "768 training examples",
+          "A token represented by 768 numerical features",
+          "768 layers in the transformer"
+        ],
+        "answer": 2,
+        "explanation": "Each embedding dimension is a numeric feature encoding semantic properties."
+      },
+      {
+        "question": "Why are similar words close in embedding space?",
+        "options": [
+          "They are manually programmed that way.",
+          "They appear in similar contexts during training.",
+          "They share the same spelling.",
+          "They have identical token IDs."
+        ],
+        "answer": 1,
+        "explanation": "Embeddings are learned from contextual similarity during training."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Inside a Transformer Layer",
+    "type": "fill_in",
+    "text": "Each transformer layer contains ___ and ___ as its two primary components.",
+    "blanks": [
+      {
+        "options": ["Multi-Head Attention", "Convolution", "Recurrent Memory", "Pooling"],
+        "answer": "Multi-Head Attention",
+        "explanation": "Attention allows the model to weigh relationships between tokens."
+      },
+      {
+        "options": ["Feed-Forward Network", "Gradient Clipping", "Backpropagation", "Batch Normalization"],
+        "answer": "Feed-Forward Network",
+        "explanation": "The feed-forward network applies non-linear transformations."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Attention Mechanism",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Different attention heads can specialize in syntax, semantics, or long-range dependencies.",
+        "answer": true,
+        "explanation": "Multiple heads learn different relational patterns."
+      },
+      {
+        "statement": "Attention patterns are explicitly programmed by engineers.",
+        "answer": false,
+        "explanation": "They emerge from training data."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Model Training Scale",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Modern LLMs are typically trained on how many tokens?",
+        "options": [
+          "1–10 million",
+          "100–500 million",
+          "1–15 trillion",
+          "Less than Wikipedia"
+        ],
+        "answer": 2,
+        "explanation": "Frontier models train on trillions of tokens."
+      },
+      {
+        "question": "What is RLHF primarily used for?",
+        "options": [
+          "Increasing parameter count",
+          "Aligning models with human preferences",
+          "Reducing GPU costs",
+          "Improving hardware efficiency"
+        ],
+        "answer": 1,
+        "explanation": "RLHF teaches models to produce responses humans prefer."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Context Windows",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Larger context windows allow models to analyze entire codebases or long documents.",
+        "answer": true,
+        "explanation": "More tokens in context enable broader analysis."
+      },
+      {
+        "statement": "Longer contexts always improve accuracy.",
+        "answer": false,
+        "explanation": "Very long contexts may reduce focus and accuracy."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Benchmark Awareness",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What does SWE-bench Verified measure?",
+        "options": [
+          "Creative writing ability",
+          "GitHub issue resolution capability",
+          "Token efficiency",
+          "Image generation quality"
+        ],
+        "answer": 1,
+        "explanation": "It measures practical software engineering performance."
+      },
+      {
+        "question": "Why are benchmark scores not enough for model selection?",
+        "options": [
+          "They are always inaccurate.",
+          "They don't reflect real-world use cases.",
+          "They measure hardware speed only.",
+          "They are unrelated to AI."
+        ],
+        "answer": 1,
+        "explanation": "Real-world performance must be validated on your own use case."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Geopolitical AI Competition",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Approximately what percentage of global AI compute capacity is controlled by the US?",
+        "options": ["14%", "50%", "74%", "90%"],
+        "answer": 2,
+        "explanation": "The US controls about 74% of global AI compute capacity."
+      },
+      {
+        "question": "What is one effect of US semiconductor export controls?",
+        "options": [
+          "Lower GPU prices globally",
+          "Restricted access to advanced chips in China",
+          "Increased open-source adoption",
+          "Reduced AI research funding"
+        ],
+        "answer": 1,
+        "explanation": "Export controls limit access to advanced chips like H100."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "API vs Local Deployment",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "API integration is typically faster to deploy than local model hosting.",
+        "answer": true,
+        "explanation": "APIs allow deployment within minutes or hours."
+      },
+      {
+        "statement": "Local deployment eliminates the need for ML expertise.",
+        "answer": false,
+        "explanation": "Local deployment requires specialized infrastructure and ML operations skills."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Prompt Engineering",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the purpose of few-shot examples in prompts?",
+        "options": [
+          "To reduce token costs",
+          "To demonstrate desired input-output patterns",
+          "To increase randomness",
+          "To bypass safety filters"
+        ],
+        "answer": 1,
+        "explanation": "Few-shot examples help models learn the expected output pattern."
+      },
+      {
+        "question": "What does temperature control?",
+        "options": [
+          "Model hardware temperature",
+          "Response latency",
+          "Randomness in sampling",
+          "Embedding size"
+        ],
+        "answer": 2,
+        "explanation": "Lower temperature = more deterministic; higher = more creative."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Monitoring AI Systems",
+    "type": "fill_in",
+    "text": "Key production metrics include P95 ___, error rate, and cost per ___.",
+    "blanks": [
+      {
+        "options": ["latency", "temperature", "accuracy", "tokens"],
+        "answer": "latency",
+        "explanation": "P95 latency tracks response time performance."
+      },
+      {
+        "options": ["token", "resolution", "GPU", "prompt"],
+        "answer": "resolution",
+        "explanation": "Cost per successful resolution measures ROI."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Cost Optimization",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is prompt caching primarily used for?",
+        "options": [
+          "Increasing randomness",
+          "Reducing cost on repeated prompt prefixes",
+          "Improving benchmark scores",
+          "Expanding context window"
+        ],
+        "answer": 1,
+        "explanation": "Caching reused prompt sections reduces token cost."
+      },
+      {
+        "question": "Why use smaller models for simple tasks?",
+        "options": [
+          "They are always more accurate.",
+          "They reduce average cost per query.",
+          "They have larger context windows.",
+          "They eliminate hallucinations."
+        ],
+        "answer": 1,
+        "explanation": "Right-sizing models reduces cost while maintaining adequate performance."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Risk & Safety",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Hallucination rates in frontier models typically range between 2–5% on factual queries.",
+        "answer": true,
+        "explanation": "Frontier models generally fall within that range."
+      },
+      {
+        "statement": "Prompt injection attacks attempt to override system instructions.",
+        "answer": true,
+        "explanation": "They exploit model instruction hierarchy."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Emergence at Scale",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which capability is considered emergent at scale?",
+        "options": [
+          "Basic tokenization",
+          "Chain-of-thought reasoning",
+          "GPU cooling",
+          "Manual rule-based coding"
+        ],
+        "answer": 1,
+        "explanation": "Advanced reasoning emerges in large-scale models."
+      }
+    ]
+  },
+
+
+
+
+
+
+
+
+
+
+   {
+    "id": 26,
+    "title": "Retrieval-Augmented Generation (RAG)",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the primary purpose of Retrieval-Augmented Generation (RAG)?",
+        "options": [
+          "To reduce model size",
+          "To retrieve external knowledge and ground model responses",
+          "To eliminate hallucinations entirely",
+          "To increase embedding dimensionality"
+        ],
+        "answer": 1,
+        "explanation": "RAG retrieves relevant documents from external sources and injects them into the prompt to improve factual grounding."
+      },
+      {
+        "question": "What component is typically required in a RAG system?",
+        "options": [
+          "Vector database",
+          "Compiler",
+          "GPU driver patch",
+          "Blockchain node"
+        ],
+        "answer": 0,
+        "explanation": "RAG systems commonly use a vector database to retrieve semantically similar documents."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Fine-Tuning vs Prompt Engineering",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Fine-tuning modifies model weights, while prompt engineering does not.",
+        "answer": true,
+        "explanation": "Fine-tuning updates parameters; prompt engineering changes only the input instructions."
+      },
+      {
+        "statement": "Fine-tuning is always cheaper and faster than prompt engineering.",
+        "answer": false,
+        "explanation": "Fine-tuning requires training compute and data preparation, making it more expensive and complex."
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Vector Databases",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Why are vector databases used in AI applications?",
+        "options": [
+          "To store GPU firmware",
+          "To perform similarity search over embeddings",
+          "To compress token usage",
+          "To replace transformers"
+        ],
+        "answer": 1,
+        "explanation": "Vector databases enable efficient nearest-neighbor search in embedding space."
+      },
+      {
+        "question": "Which metric is commonly used to measure embedding similarity?",
+        "options": [
+          "Cosine similarity",
+          "Frame rate",
+          "Clock speed",
+          "Temperature scaling"
+        ],
+        "answer": 0,
+        "explanation": "Cosine similarity measures the angle between vectors, indicating semantic similarity."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Inference Optimization",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is quantization in the context of LLMs?",
+        "options": [
+          "Reducing numerical precision to make models smaller and faster",
+          "Increasing model temperature",
+          "Splitting tokens into subwords",
+          "Adding more attention heads"
+        ],
+        "answer": 0,
+        "explanation": "Quantization reduces precision (e.g., FP16 → INT8) to improve efficiency."
+      },
+      {
+        "question": "What is model distillation?",
+        "options": [
+          "Training a smaller model to mimic a larger one",
+          "Removing attention layers",
+          "Filtering prompts",
+          "Encrypting model weights"
+        ],
+        "answer": 0,
+        "explanation": "Distillation transfers knowledge from a large teacher model to a smaller student model."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Evaluation Strategies",
+    "type": "fill_in",
+    "text": "Offline evaluation uses static test datasets, while ___ evaluation measures model performance in real-world production environments.",
+    "blanks": [
+      {
+        "options": ["online", "batch", "synthetic", "manual"],
+        "answer": "online",
+        "explanation": "Online evaluation measures live system performance using real user interactions."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "AI Agents & Tool Use",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Tool-using agents can call APIs, run code, or access databases during reasoning.",
+        "answer": true,
+        "explanation": "Modern agents integrate external tools to extend capability."
+      },
+      {
+        "statement": "Agentic systems eliminate the need for monitoring and guardrails.",
+        "answer": false,
+        "explanation": "Agents increase complexity and require stronger monitoring and safety controls."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Latency & Scaling",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which factor most directly increases inference latency?",
+        "options": [
+          "Larger model size",
+          "Shorter prompts",
+          "Lower temperature",
+          "Fewer users"
+        ],
+        "answer": 0,
+        "explanation": "Larger models require more computation per token."
+      },
+      {
+        "question": "Horizontal scaling in AI systems typically means:",
+        "options": [
+          "Using larger GPUs",
+          "Adding more model replicas to handle traffic",
+          "Increasing embedding dimensions",
+          "Increasing temperature"
+        ],
+        "answer": 1,
+        "explanation": "Horizontal scaling distributes load across multiple instances."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Data Governance",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is data minimization in AI systems?",
+        "options": [
+          "Using the smallest model possible",
+          "Collecting and processing only necessary data",
+          "Reducing embedding size",
+          "Limiting token count"
+        ],
+        "answer": 1,
+        "explanation": "Data minimization reduces privacy risk by limiting collected information."
+      },
+      {
+        "question": "Why maintain audit logs in AI systems?",
+        "options": [
+          "To increase token speed",
+          "To support compliance and traceability",
+          "To improve creativity",
+          "To reduce latency"
+        ],
+        "answer": 1,
+        "explanation": "Audit logs enable accountability and regulatory compliance."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Model Drift",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Model drift occurs when real-world data changes over time, reducing model performance.",
+        "answer": true,
+        "explanation": "Distribution shifts can degrade performance."
+      },
+      {
+        "statement": "LLMs deployed via API are immune to drift.",
+        "answer": false,
+        "explanation": "Upstream model updates or usage changes can introduce behavioral drift."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Open-Source vs Closed Models",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is a key advantage of open-weight models?",
+        "options": [
+          "Guaranteed best benchmark performance",
+          "Full control over deployment and fine-tuning",
+          "Lower hallucination rates by default",
+          "No hardware requirements"
+        ],
+        "answer": 1,
+        "explanation": "Open models allow customization and on-prem deployment."
+      },
+      {
+        "question": "What is a common trade-off with closed proprietary models?",
+        "options": [
+          "Lower reasoning quality",
+          "Limited transparency and vendor dependency",
+          "No API support",
+          "Smaller context windows"
+        ],
+        "answer": 1,
+        "explanation": "Closed models may limit visibility into training data and create vendor lock-in."
+      }
+    ]
+  },
+
+    {
+    "id": 36,
+    "title": "Space Fun Facts",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "If two pieces of the same metal touch in space, what happens?",
+        "options": [
+          "They bounce apart due to vacuum pressure.",
+          "They can permanently bond together (cold welding).",
+          "They instantly freeze and shatter.",
+          "Nothing — space has no effect."
+        ],
+        "answer": 1,
+        "explanation": "In a vacuum, without oxidation layers, clean metal surfaces can fuse together through cold welding."
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "Animal Kingdom Oddities",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Octopuses have three hearts and blue blood.",
+        "answer": true,
+        "explanation": "Octopuses have three hearts, and their blood is blue because it uses copper-based hemocyanin instead of iron-based hemoglobin."
+      },
+      {
+        "statement": "Sharks are older than trees.",
+        "answer": true,
+        "explanation": "Sharks have existed for over 400 million years, while the first trees appeared around 350 million years ago."
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Strange Human Facts",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What percentage of your body’s atoms are replaced every year?",
+        "options": [
+          "Almost none",
+          "About 10%",
+          "About 50%",
+          "Nearly all of them"
+        ],
+        "answer": 3,
+        "explanation": "Through cellular turnover and metabolic processes, most atoms in your body are replaced each year."
+      },
+      {
+        "question": "Bananas are technically classified as what?",
+        "options": [
+          "Vegetables",
+          "Herbs",
+          "Berries",
+          "Nuts"
+        ],
+        "answer": 2,
+        "explanation": "Botanically speaking, bananas qualify as berries, while strawberries do not."
+      }
+    ]
+  },
+
+
+  {
+    "id": 39,
+    "title": "Sleeping",
+    "type": "fill_in",
+    "text": "How many tiems has Martin failed to wake up for daily stand-up this year?",
+    "blanks": [
+      {
+        "options": ["0", "1", "2", "3"],
+        "answer": "2",
+        "explanation": "At least acording to my memorry."
+      }
+    ]
   }
+
+
+
+  
 ]
