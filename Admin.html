@@ -2,309 +2,493 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Control - English Articles Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizArena — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: var(--bg); }
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      min-height: 100vh;
+    }
+    @media (max-width: 800px) {
+      .admin-layout { grid-template-columns: 1fr; }
+    }
+
+    .admin-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .admin-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+    }
+    .admin-badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255,107,107,0.15);
+      color: var(--red);
+      border: 1px solid rgba(255,107,107,0.3);
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .panel h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .control-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    select#question-select {
+      flex: 1;
+      min-width: 200px;
+      appearance: none;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px 14px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b8fa3' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+    select#question-select:focus { outline: none; border-color: var(--accent); }
+
+    input#duration {
+      width: 90px;
+      text-align: center;
+    }
+    .duration-label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    #status {
+      font-size: 0.85rem;
+      color: var(--green);
+      min-height: 1.2em;
+    }
+    #status.error { color: var(--red); }
+
+    .admin-timer {
+      font-size: 1.4rem;
+      font-family: var(--font-display);
+      color: var(--accent-light);
+      text-align: center;
+      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    .admin-timer.expired { color: var(--red); }
+
+    /* Test preview */
+    .test-preview {
+      margin-top: 16px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .test-preview strong { color: var(--text); }
+
+    .action-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Admin leaderboard */
+    .admin-lb {
+      list-style: none;
+      counter-reset: alb;
+    }
+    .admin-lb li {
+      counter-increment: alb;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-lb li::before {
+      content: counter(alb) ".";
+      color: var(--text-muted);
+      font-weight: 700;
+      min-width: 22px;
+    }
+    .admin-lb .alb-name { font-weight: 600; flex: 1; }
+    .admin-lb .alb-score { color: var(--accent-light); font-weight: 600; }
+    .admin-lb .alb-meta { color: var(--text-muted); font-size: 0.78rem; }
+
+    .empty-msg {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.85rem;
+    }
+
+    #archive-status {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      font-style: italic;
+      min-height: 1.2em;
+    }
+
+    .sidebar-panel { position: sticky; top: 20px; }
+  </style>
 </head>
 <body>
-  <div id="container">
-    <h1>👩‍🏫 Admin Control</h1>
-    <p>Select a question and duration:</p>
-    <select id="question-select"></select>
-    <input type="number" id="duration" placeholder="Seconds" value="30" min="5" style="width:80px;" />
-    <button id="emit-btn">Start Round</button>
-    <p id="status"></p>
-    <p id="admin-timer" style="font-weight:bold; color:#c33;"></p>
 
-    <h3>Live Leaderboard</h3>
-    <ul id="admin-leaderboard"><li>Waiting for results...</li></ul>
+  <div class="admin-layout">
+    <div class="admin-header">
+      <span style="font-size:1.4rem;">&#9670;</span>
+      <h1>QuizArena</h1>
+      <span class="admin-badge">Admin</span>
+    </div>
 
-    <button id="reset-btn">Reset / Next Round</button>
+    <!-- Main Controls -->
+    <div class="main-col">
+      <div class="panel" style="margin-bottom:20px;">
+        <h3>Start a Round</h3>
+        <div class="control-group">
+          <select id="question-select"></select>
+          <div class="control-row">
+            <input type="number" id="duration" value="60" min="5" max="600" />
+            <span class="duration-label">seconds</span>
+            <button id="emit-btn" class="btn btn-primary btn-small">Start Round</button>
+            <button id="reset-btn" class="btn btn-secondary btn-small">Reset / Next</button>
+          </div>
+        </div>
+        <p id="status"></p>
+        <div class="test-preview" id="test-preview">
+          <em>Select a test to see a preview…</em>
+        </div>
+      </div>
 
-    <h3>🌍 Global Leaderboard (All Rounds)</h3>
-    <ul id="global-leaderboard"><li>Loading global stats...</li></ul>
+      <div class="panel" style="margin-bottom:20px;">
+        <div class="admin-timer" id="admin-timer">No active round</div>
+        <h3>Live Leaderboard</h3>
+        <ol id="admin-leaderboard" class="admin-lb">
+          <li><span class="empty-msg">No active round</span></li>
+        </ol>
+      </div>
 
-    <button id="archive-btn">📦 Archive & Reset Global Leaderboard</button>
-    <p id="archive-status" style="font-style: italic; color: #555;"></p>
+      <div class="panel">
+        <h3>Global Leaderboard (All Rounds)</h3>
+        <ol id="global-leaderboard" class="admin-lb">
+          <li><span class="empty-msg">Loading…</span></li>
+        </ol>
+        <div style="margin-top:16px; display:flex; gap:10px; align-items:center;">
+          <button id="archive-btn" class="btn btn-danger btn-small">Archive & Reset</button>
+          <span id="archive-status"></span>
+        </div>
+      </div>
+    </div>
 
+    <!-- Sidebar -->
+    <div class="sidebar-panel">
+      <div class="panel">
+        <h3>All Tests</h3>
+        <div id="test-list" style="font-size:0.85rem; color:var(--text-dim);">Loading…</div>
+      </div>
+    </div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script src="firebase.js"></script>
-    <script>
-    let texts = [];
 
-    async function loadTexts() {
-    const res = await fetch("data/texts.json");
-    texts = await res.json();
+  <script>
+    let questions = [];
 
-    const select = document.getElementById("question-select");
-    select.innerHTML = ""; // clear any old options
+    async function loadQuestions() {
+      const res = await fetch("data/questions.json");
+      questions = await res.json();
 
-    texts.forEach(t => {
+      const select = document.getElementById("question-select");
+      select.innerHTML = "";
+      const testListEl = document.getElementById("test-list");
+      let testListHtml = "";
+
+      const typeLabels = {
+        multiple_choice: "MC",
+        true_false: "T/F",
+        fill_in: "Fill-in"
+      };
+
+      questions.forEach(t => {
         const opt = document.createElement("option");
         opt.value = t.id;
-        opt.textContent = `${t.id}. ${t.title}`;
+        const qCount = t.type === "fill_in" ? t.blanks.length : t.questions.length;
+        const label = typeLabels[t.type] || t.type;
+        opt.textContent = `${t.id}. ${t.title} [${label} · ${qCount}q]`;
         select.appendChild(opt);
-    });
+
+        testListHtml += `<div style="padding:6px 0; border-bottom:1px solid var(--border);">
+          <strong>${t.id}.</strong> ${esc(t.title)}
+          <span style="color:var(--accent-light);font-size:0.75rem;margin-left:4px;">${label} · ${qCount}q</span>
+        </div>`;
+      });
+
+      testListEl.innerHTML = testListHtml;
+      updatePreview();
     }
 
-    // Start a new round
+    // Preview
+    document.getElementById("question-select").addEventListener("change", updatePreview);
+
+    function updatePreview() {
+      const id = parseInt(document.getElementById("question-select").value);
+      const test = questions.find(t => t.id === id);
+      const el = document.getElementById("test-preview");
+      if (!test) { el.innerHTML = "<em>No test selected</em>"; return; }
+
+      let html = `<strong>${esc(test.title)}</strong> — <em>${test.type.replace(/_/g, " ")}</em><br><br>`;
+
+      if (test.type === "fill_in") {
+        html += `<div style="line-height:1.8;">${esc(test.text).replace(/___/g, '<span style="color:var(--accent-light);font-weight:700;">______</span>')}</div>`;
+        html += `<br>${test.blanks.length} blanks`;
+      } else if (test.type === "multiple_choice") {
+        test.questions.forEach((q, i) => {
+          html += `<div style="margin-bottom:8px;"><strong>${i + 1}.</strong> ${esc(q.question)}</div>`;
+        });
+      } else if (test.type === "true_false") {
+        test.questions.forEach((q, i) => {
+          html += `<div style="margin-bottom:8px;"><strong>${i + 1}.</strong> ${esc(q.statement)} → <span style="color:${q.answer ? 'var(--green)' : 'var(--red)'}">${q.answer}</span></div>`;
+        });
+      }
+      el.innerHTML = html;
+    }
+
+    // Start round
     document.getElementById("emit-btn").addEventListener("click", () => {
-    const textId = parseInt(document.getElementById("question-select").value);
-    const duration = parseInt(document.getElementById("duration").value) || 30;
-    const roundId = Date.now();
-    const startTime = Date.now();
+      const testId = parseInt(document.getElementById("question-select").value);
+      const duration = parseInt(document.getElementById("duration").value) || 60;
+      const test = questions.find(t => t.id === testId);
+      if (!test) return;
 
-    db.ref("currentRound").set({
+      const roundId = Date.now();
+      db.ref("currentRound").set({
         id: roundId,
-        textId,
+        testId,
         duration,
-        startTime
-    });
+        startTime: Date.now()
+      });
 
-    document.getElementById("status").textContent =
-        `✅ Round ${roundId} started (${texts.find(t => t.id === textId).title}) for ${duration} seconds`;
+      const statusEl = document.getElementById("status");
+      statusEl.className = "";
+      statusEl.textContent = `✓ Round started: "${test.title}" for ${duration}s`;
     });
 
     // Reset round
     document.getElementById("reset-btn").addEventListener("click", () => {
-    db.ref("currentRound").remove();
-    document.getElementById("status").textContent = "🕒 Waiting for next round...";
-    document.getElementById("admin-leaderboard").innerHTML = "<li>No active round.</li>";
+      db.ref("currentRound").remove();
+      document.getElementById("status").textContent = "Round cleared. Ready for next.";
+      document.getElementById("admin-leaderboard").innerHTML = '<li><span class="empty-msg">No active round</span></li>';
     });
 
-    // =============================
-    // ✅ Live Leaderboard
-    // =============================
+    // Live leaderboard
+    let adminRoundRef = null;
+    db.ref("currentRound").on("value", snap => {
+      const data = snap.val();
+      const timerEl = document.getElementById("admin-timer");
 
-    db.ref("currentRound").on("value", (snapshot) => {
-    const data = snapshot.val();
-    if (!data || !data.id || !data.textId) {
-        document.getElementById("admin-leaderboard").innerHTML = "<li>No active round.</li>";
+      if (!data || !data.id || !data.testId) {
+        timerEl.textContent = "No active round";
+        timerEl.classList.remove("expired");
+        clearInterval(window._adminTimer);
+        document.getElementById("admin-leaderboard").innerHTML = '<li><span class="empty-msg">No active round</span></li>';
+        if (adminRoundRef) { adminRoundRef.off(); adminRoundRef = null; }
         return;
+      }
+
+      // Timer
+      showAdminTimer(data.startTime, data.duration);
+
+      // Leaderboard
+      const test = questions.find(t => t.id === data.testId);
+      const total = test
+        ? (test.type === "fill_in" ? test.blanks.length : test.questions.length)
+        : 1;
+
+      if (adminRoundRef) adminRoundRef.off();
+      let results = [];
+      adminRoundRef = db.ref("results").orderByChild("roundId").equalTo(String(data.id));
+
+      adminRoundRef.on("child_added", cs => {
+        results.push(cs.val());
+        renderAdminLb(results, total);
+      });
+      adminRoundRef.on("child_removed", () => {
+        results = [];
+        renderAdminLb(results, total);
+      });
+    });
+
+    function renderAdminLb(results, total) {
+      const el = document.getElementById("admin-leaderboard");
+      if (!results.length) {
+        el.innerHTML = '<li><span class="empty-msg">Waiting for submissions…</span></li>';
+        return;
+      }
+      results.sort((a, b) => b.score - a.score);
+      el.innerHTML = results.map(r => {
+        const pct = ((r.score / total) * 100).toFixed(0);
+        return `<li>
+          <span class="alb-name">${esc(r.username)}</span>
+          <span class="alb-score">${r.score}/${total}</span>
+          <span class="alb-meta">(${pct}%)</span>
+        </li>`;
+      }).join("");
     }
 
-    const { id, textId } = data;
-    const total = texts.find(t => t.id === textId)?.answers.length || 1;
+    function showAdminTimer(startTime, durationSec) {
+      clearInterval(window._adminTimer);
+      const el = document.getElementById("admin-timer");
+      const endTime = startTime + durationSec * 1000;
 
-    let adminResults = [];
-    const ref = db.ref("results").orderByChild("roundId").equalTo(String(id));
-
-    ref.on("child_added", (childSnap) => {
-        adminResults.push(childSnap.val());
-        updateAdminLeaderboard(adminResults, total);
-    });
-
-    ref.on("child_removed", (childSnap) => {
-        adminResults = adminResults.filter(r => r.roundId !== String(id));
-        updateAdminLeaderboard(adminResults, total);
-    });
-    });
-
-    function updateAdminLeaderboard(results, total) {
-    if (!results.length) {
-        document.getElementById("admin-leaderboard").innerHTML = "<li>No results yet.</li>";
-        return;
-    }
-
-    results.sort((a, b) => {
-        if (b.score === a.score) {
-        return new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`);
+      function update() {
+        const remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+        if (remaining <= 0) {
+          el.textContent = "Round finished";
+          el.classList.add("expired");
+          clearInterval(window._adminTimer);
+        } else {
+          const m = Math.floor(remaining / 60);
+          const s = remaining % 60;
+          el.textContent = m > 0 ? `${m}:${String(s).padStart(2, "0")}` : `${s}s`;
+          el.classList.remove("expired");
         }
-        return b.score - a.score;
-    });
-
-    document.getElementById("admin-leaderboard").innerHTML = results
-        .map(
-        (r, i) =>
-            `<li>${i + 1}. ${r.username}: ${r.score}/${total} (${(
-            (r.score / total) * 100
-            ).toFixed(0)}%) — ${r.date} ${r.time}</li>`
-        )
-        .join("");
+      }
+      update();
+      window._adminTimer = setInterval(update, 500);
     }
 
-    // ====================================
-    // 🌍 GLOBAL LEADERBOARD (All rounds)
-    // ====================================
-
+    // Global leaderboard
     let globalListener = null;
 
     function updateGlobalLeaderboard() {
-    const globalEl = document.getElementById("global-leaderboard");
-
-    db.ref("results").once("value", (snapshot) => {
-        const results = snapshot.val();
+      const el = document.getElementById("global-leaderboard");
+      db.ref("results").once("value", snap => {
+        const results = snap.val();
         if (!results) {
-        globalEl.innerHTML = "<li>No results yet.</li>";
-        return;
+          el.innerHTML = '<li><span class="empty-msg">No results yet</span></li>';
+          return;
         }
 
-        const userStats = {}; // { username: { correct, total, rounds: Set() } }
-
+        const stats = {};
         for (const key in results) {
-        const r = results[key];
-        const textObj = texts.find(t => t.id === r.textId);
-        const total = textObj ? textObj.answers.length : 1;
-
-        if (!userStats[r.username]) {
-            userStats[r.username] = { correct: 0, total: 0, rounds: new Set() };
+          const r = results[key];
+          if (!stats[r.username]) stats[r.username] = { correct: 0, total: 0, rounds: new Set() };
+          stats[r.username].correct += r.score;
+          stats[r.username].total += r.total || 1;
+          stats[r.username].rounds.add(r.roundId);
         }
 
-        userStats[r.username].correct += r.score;
-        userStats[r.username].total += total;
-        userStats[r.username].rounds.add(r.roundId);
-        }
+        const table = Object.entries(stats)
+          .map(([name, d]) => ({ name, correct: d.correct, total: d.total, pct: ((d.correct / d.total) * 100).toFixed(1), rounds: d.rounds.size }))
+          .sort((a, b) => b.correct - a.correct || b.pct - a.pct);
 
-        // Convert to sortable array
-        const table = Object.entries(userStats).map(([username, data]) => {
-        const percentage = ((data.correct / data.total) * 100).toFixed(1);
-        return {
-            username,
-            correct: data.correct,
-            total: data.total,
-            percentage,
-            roundsPlayed: data.rounds.size
-        };
-        });
-
-        // ✅ Sort by total correct (descending), then by percentage as tiebreaker
-        table.sort((a, b) => b.correct - a.correct || b.percentage - a.percentage);
-
-        // Render to UI
-        globalEl.innerHTML = table
-        .map(
-            (u, i) => `
-            <li>
-            ${i + 1}. <strong>${u.username}</strong> — 
-            ${u.correct}/${u.total} correct (${u.percentage}%) —
-            ${u.roundsPlayed} rounds played
-            </li>`
-        )
-        .join("");
-    });
+        el.innerHTML = table.map(u =>
+          `<li>
+            <span class="alb-name">${esc(u.name)}</span>
+            <span class="alb-score">${u.correct}/${u.total} (${u.pct}%)</span>
+            <span class="alb-meta">${u.rounds} rnd${u.rounds !== 1 ? "s" : ""}</span>
+          </li>`
+        ).join("");
+      });
     }
 
-    // ✅ Listen for *any new result* in Firebase
     function attachGlobalListener() {
-    if (globalListener) globalListener.off(); // prevent double listeners
-
-    globalListener = db.ref("results");
-    globalListener.on("child_added", () => updateGlobalLeaderboard());
-    globalListener.on("child_removed", () => updateGlobalLeaderboard());
+      if (globalListener) globalListener.off();
+      globalListener = db.ref("results");
+      globalListener.on("child_added", updateGlobalLeaderboard);
+      globalListener.on("child_removed", updateGlobalLeaderboard);
     }
 
-    // ✅ Update at new round start + live updates
-    db.ref("currentRound").on("value", (snapshot) => {
-    const data = snapshot.val();
-    if (data && data.id) updateGlobalLeaderboard();
-    });
-
-    // ✅ Initialize when page loads
-    loadTexts().then(() => {
-    updateGlobalLeaderboard();
-    attachGlobalListener();
-    });
-
-
-    // ====================================
-    // 📦 ARCHIVE & RESET GLOBAL LEADERBOARD
-    // ====================================
-
+    // Archive & Reset
     document.getElementById("archive-btn").addEventListener("click", async () => {
-    const confirmAction = confirm(
-        "Are you sure you want to archive and reset the global leaderboard?\n\n" +
-        "This will download the archive JSON file to your computer and delete all results from Firebase."
-    );
-    if (!confirmAction) return;
+      if (!confirm("Archive all results and reset the global leaderboard?\n\nThis downloads a JSON backup and clears Firebase.")) return;
 
-    document.getElementById("archive-status").textContent = "Archiving...";
+      const statusEl = document.getElementById("archive-status");
+      statusEl.textContent = "Archiving…";
 
-    try {
-        // Step 1: Fetch all results
-        const snapshot = await db.ref("results").once("value");
-        const results = snapshot.val() || {};
+      try {
+        const snap = await db.ref("results").once("value");
+        const results = snap.val() || {};
 
-        // Step 2: Create archive data
         const archive = {
-        timestamp: new Date().toISOString(),
-        totalEntries: Object.keys(results).length,
-        results
+          timestamp: new Date().toISOString(),
+          totalEntries: Object.keys(results).length,
+          results
         };
 
-        // Step 3: Trigger browser download
         const blob = new Blob([JSON.stringify(archive, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
-        const dateStr = new Date().toISOString().replace(/[:.]/g, "-");
         a.href = url;
-        a.download = `leaderboard-archive-${dateStr}.json`;
+        a.download = `quizarena-archive-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
         a.click();
         URL.revokeObjectURL(url);
 
-        // Step 4: Clear results from Firebase
         await db.ref("results").remove();
-
-        document.getElementById("archive-status").textContent =
-        "✅ Leaderboard archived and reset successfully.";
-        
-        // Optional: Clear visible leaderboard
-        document.getElementById("global-leaderboard").innerHTML = "<li>Leaderboard reset.</li>";
-    } catch (err) {
+        statusEl.textContent = "✓ Archived and reset successfully.";
+        document.getElementById("global-leaderboard").innerHTML = '<li><span class="empty-msg">Leaderboard reset</span></li>';
+      } catch (err) {
         console.error(err);
-        document.getElementById("archive-status").textContent =
-        "❌ Error archiving leaderboard. See console for details.";
-    }
+        statusEl.textContent = "✗ Error — see console.";
+      }
     });
 
-
-
-    // Load texts after defining everything
-    loadTexts();
-
-    let adminTimerInterval = null;
-
-    function showAdminTimer(startTime, durationSec) {
-    clearInterval(adminTimerInterval);
-    const el = document.getElementById("admin-timer");
-    const endTime = startTime + durationSec * 1000;
-
-    function update() {
-        const now = Date.now();
-        const remaining = Math.max(0, Math.floor((endTime - now) / 1000));
-
-        if (remaining <= 0) {
-        el.textContent = "⏳ Round finished";
-        clearInterval(adminTimerInterval);
-        } else {
-        el.textContent = `⏰ Time left: ${remaining}s`;
-        }
+    function esc(str) {
+      return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
 
-    update();
-    adminTimerInterval = setInterval(update, 1000);
-    }
-
-    // Hook this into your currentRound listener:
-    db.ref("currentRound").on("value", (snapshot) => {
-    const data = snapshot.val();
-    if (!data || !data.id || !data.textId) {
-        clearInterval(adminTimerInterval);
-        document.getElementById("admin-timer").textContent = "";
-        document.getElementById("admin-leaderboard").innerHTML =
-        "<li>No active round.</li>";
-        return;
-    }
-
-    // existing leaderboard logic...
-    showAdminTimer(data.startTime, data.duration);
+    // Init
+    loadQuestions().then(() => {
+      updateGlobalLeaderboard();
+      attachGlobalListener();
     });
-
-
-
-    </script>
-
+  </script>
 
 </body>
 </html>

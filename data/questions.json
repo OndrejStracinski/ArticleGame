@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "title": "English Articles — Morning Routine",
+    "type": "fill_in",
+    "text": "I made ___ cup of coffee and read ___ newspaper before going to ___ office.",
+    "blanks": [
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' introduces a nonspecific cup." },
+      { "options": ["a", "an", "the", "—"], "answer": "the", "explanation": "'The' refers to a specific, known newspaper." },
+      { "options": ["a", "an", "the", "—"], "answer": "the", "explanation": "'The' refers to the speaker's specific office." }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "World Capitals",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the capital of France?",
+        "options": ["London", "Paris", "Berlin", "Madrid"],
+        "answer": 1,
+        "explanation": "Paris has been the capital of France since the 10th century."
+      },
+      {
+        "question": "What is the capital of Japan?",
+        "options": ["Seoul", "Beijing", "Tokyo", "Osaka"],
+        "answer": 2,
+        "explanation": "Tokyo has been the capital since 1868."
+      },
+      {
+        "question": "What is the capital of Australia?",
+        "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+        "answer": 2,
+        "explanation": "Canberra was purpose-built as the capital as a compromise between Sydney and Melbourne."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Science True or False",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "The Sun revolves around the Earth.",
+        "answer": false,
+        "explanation": "The Earth revolves around the Sun."
+      },
+      {
+        "statement": "Water boils at 100°C at standard atmospheric pressure.",
+        "answer": true,
+        "explanation": "At 1 atm, water's boiling point is exactly 100°C."
+      },
+      {
+        "statement": "Sound travels faster in water than in air.",
+        "answer": true,
+        "explanation": "Sound travels about 4x faster in water (~1,480 m/s) than in air (~343 m/s)."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "English Articles — At the Zoo",
+    "type": "fill_in",
+    "text": "___ elephant was eating ___ banana near ___ tree.",
+    "blanks": [
+      { "options": ["a", "an", "the", "—"], "answer": ["the", "an"], "explanation": "Both 'the' (specific elephant) and 'an' (one elephant) work." },
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' introduces a nonspecific banana." },
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' introduces a nonspecific tree." }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Math Fundamentals",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is 15% of 200?",
+        "options": ["15", "25", "30", "35"],
+        "answer": 2,
+        "explanation": "15% × 200 = 0.15 × 200 = 30"
+      },
+      {
+        "question": "Which number is prime?",
+        "options": ["21", "27", "29", "33"],
+        "answer": 2,
+        "explanation": "29 is only divisible by 1 and itself."
+      },
+      {
+        "question": "What is the square root of 144?",
+        "options": ["10", "11", "12", "14"],
+        "answer": 2,
+        "explanation": "12 × 12 = 144"
+      },
+      {
+        "question": "Solve: 3x + 7 = 22. What is x?",
+        "options": ["3", "4", "5", "6"],
+        "answer": 2,
+        "explanation": "3x = 15, so x = 5."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Vocabulary — Synonyms",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which word is closest in meaning to 'benevolent'?",
+        "options": ["Hostile", "Kind", "Indifferent", "Greedy"],
+        "answer": 1,
+        "explanation": "'Benevolent' means well-meaning and kindly."
+      },
+      {
+        "question": "Which word is closest in meaning to 'ephemeral'?",
+        "options": ["Eternal", "Temporary", "Solid", "Important"],
+        "answer": 1,
+        "explanation": "'Ephemeral' means lasting for a very short time."
+      },
+      {
+        "question": "Which word is closest in meaning to 'ubiquitous'?",
+        "options": ["Rare", "Unique", "Everywhere", "Hidden"],
+        "answer": 2,
+        "explanation": "'Ubiquitous' means present, appearing, or found everywhere."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "History Quick Check",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "The Great Wall of China is visible from space with the naked eye.",
+        "answer": false,
+        "explanation": "This is a common myth. The wall is too narrow to be seen from space without aid."
+      },
+      {
+        "statement": "World War I began in 1914.",
+        "answer": true,
+        "explanation": "WWI started on July 28, 1914."
+      },
+      {
+        "statement": "The ancient Romans used concrete in their buildings.",
+        "answer": true,
+        "explanation": "Roman concrete (opus caementicium) was used extensively, including in the Pantheon."
+      },
+      {
+        "statement": "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.",
+        "answer": true,
+        "explanation": "The Great Pyramid was built ~2560 BC, Cleopatra lived ~30 BC, and the Moon landing was 1969 AD."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "English Articles — Weekend Hike",
+    "type": "fill_in",
+    "text": "Last Saturday, Alex decided to climb ___ mountain near the town. He packed ___ backpack with food and started early in ___ morning. After a few hours, he reached ___ top and enjoyed ___ breathtaking view.",
+    "blanks": [
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' introduces a nonspecific mountain mentioned for the first time." },
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' refers to one unspecified backpack." },
+      { "options": ["a", "an", "the", "—"], "answer": "the", "explanation": "'The' specifies which morning — last Saturday's." },
+      { "options": ["a", "an", "the", "—"], "answer": "the", "explanation": "'The' identifies the specific top of that mountain." },
+      { "options": ["a", "an", "the", "—"], "answer": "a", "explanation": "'A' introduces the view as one example among many." }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Mixed Review — Geography",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which is the longest river in the world?",
+        "options": ["Amazon", "Nile", "Yangtze", "Mississippi"],
+        "answer": 1,
+        "explanation": "The Nile is approximately 6,650 km long."
+      },
+      {
+        "question": "Which continent has the most countries?",
+        "options": ["Asia", "Europe", "Africa", "South America"],
+        "answer": 2,
+        "explanation": "Africa has 54 recognized countries."
+      },
+      {
+        "question": "What is the smallest country in the world by area?",
+        "options": ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+        "answer": 1,
+        "explanation": "Vatican City is only about 0.44 km²."
+      }
+    ]
+  }
+]

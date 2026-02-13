@@ -3,55 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>English Articles Game</title>
+  <title>QuizArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<body>
-  <div id="main-layout">
-    <!-- Main Game Area -->
-    <div id="container">
-      <h1>🧩 English Articles Game</h1>
-      
-      <div id="login">
-        <input type="text" id="username" placeholder="Enter your name" />
-        <button id="start-btn">Start Game</button>
-      </div>
 
-      <div id="waiting" style="display:none;">
-        <h2>Waiting for the teacher to start...</h2>
-        <p>Stay tuned! The game will start soon.</p>
-      </div>
-
-      <div id="game" style="display:none;">
-        <h2 id="title"></h2>
-        <p id="timer" style="font-weight:bold; color:#d33;"></p>
-        <p id="text"></p>
-        <button id="submit-btn">Submit Answers</button>
-      </div>
-
-      <div id="results" style="display:none;">
-        <h2>Results</h2>
-        <p id="score"></p>
-        <h3>Leaderboard</h3>
-        <ul id="leaderboard"></ul>
-        <button id="restart-btn">Play Again</button>
+  <div id="app">
+    <!-- LOGIN -->
+    <div id="login-screen" class="screen active">
+      <div class="login-card">
+        <div class="logo">
+          <span class="logo-icon">&#9670;</span>
+          <h1>QuizArena</h1>
+        </div>
+        <p class="tagline">Real-time classroom quizzes</p>
+        <div class="login-form">
+          <input type="text" id="username" placeholder="Your name" maxlength="20" autocomplete="off" />
+          <button id="start-btn" class="btn btn-primary">Join Game</button>
+        </div>
       </div>
     </div>
 
-    <!-- Sidebar: Global Leaderboard -->
-    <aside id="global-sidebar" style="display:none;">
-      <h3>🌍 Global Leaderboard</h3>
-      <ul id="global-leaderboard"><li>Loading...</li></ul>
+    <!-- WAITING -->
+    <div id="waiting-screen" class="screen">
+      <div class="waiting-card">
+        <div class="pulse-ring"></div>
+        <div class="waiting-icon">⏳</div>
+        <h2>Waiting for the teacher…</h2>
+        <p class="waiting-sub">The next round will appear here automatically.</p>
+        <p id="player-name-display" class="player-badge"></p>
+      </div>
+    </div>
+
+    <!-- GAME -->
+    <div id="game-screen" class="screen">
+      <div class="game-header">
+        <div class="game-meta">
+          <span class="test-title" id="test-title"></span>
+          <span class="test-type-badge" id="test-type-badge"></span>
+        </div>
+        <div class="timer-bar">
+          <div class="timer-fill" id="timer-fill"></div>
+        </div>
+        <div class="timer-text" id="timer-text"></div>
+      </div>
+
+      <div class="game-body" id="game-body">
+        <!-- Questions rendered here -->
+      </div>
+
+      <div class="game-footer">
+        <div class="progress-info" id="progress-info"></div>
+        <button id="submit-btn" class="btn btn-primary btn-submit">Submit Answers</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-screen" class="screen">
+      <div class="results-container">
+        <div class="score-card" id="score-card">
+          <div class="score-ring" id="score-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="score-bg" cx="60" cy="60" r="54" />
+              <circle class="score-progress" id="score-circle" cx="60" cy="60" r="54" />
+            </svg>
+            <div class="score-number" id="score-number">0%</div>
+          </div>
+          <p class="score-detail" id="score-detail"></p>
+        </div>
+
+        <div class="review-section" id="review-section">
+          <h3>Answer Review</h3>
+          <div id="review-body"></div>
+        </div>
+
+        <div class="leaderboard-section">
+          <h3>Round Leaderboard</h3>
+          <ol id="leaderboard" class="leaderboard-list"></ol>
+        </div>
+
+        <button id="restart-btn" class="btn btn-secondary">Back to Lobby</button>
+      </div>
+    </div>
+
+    <!-- GLOBAL SIDEBAR -->
+    <aside id="global-sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-icon">🏆</span>
+        <h3>All-Time Rankings</h3>
+      </div>
+      <ol id="global-leaderboard" class="sidebar-list">
+        <li class="empty-state">Join a game to see rankings</li>
+      </ol>
     </aside>
   </div>
-</body>
 
-
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
   <script src="firebase.js"></script>
   <script src="script.js"></script>
 </body>
