@@ -858,9 +858,703 @@
         "explanation": "At least acording to my memorry."
       }
     ]
+  },
+
+
+  {
+    "id": 40,
+    "title": "═══════════ eKasa PRESENTATION — START ═══════════",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "This marks the beginning of the eKasa presentation question set.",
+        "answer": true,
+        "explanation": "Separator marker — questions 41 through 67 cover the eKasa presentation slides."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "title": "eKasa — What the Name Means",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What does the 'e' in eKasa stand for?",
+        "options": ["European", "Electronic (elektronická)", "Express", "External"],
+        "answer": 1,
+        "explanation": "'e' stands for 'elektronická' — the Slovak word for electronic."
+      },
+      {
+        "question": "Which Slovak authority operates the eKasa system?",
+        "options": ["Ministry of Interior", "Slovak National Bank", "Finančné riaditeľstvo SR (FRSR)", "Slovak Police"],
+        "answer": 2,
+        "explanation": "FRSR — the Slovak Financial Directorate — runs eKasa. It's Slovakia's equivalent of the IRS / HMRC."
+      },
+      {
+        "question": "In which year did eKasa go live?",
+        "options": ["2015", "2017", "2019", "2021"],
+        "answer": 2,
+        "explanation": "eKasa launched in 2019 and has been evolving legally ever since."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "eKasa — Real-Time Reporting",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "eKasa requires every receipt to be sent to the tax authority's servers within seconds of being issued.",
+        "answer": true,
+        "explanation": "That real-time element is the core of the system — older ERP systems only stored data locally."
+      },
+      {
+        "statement": "Data messages between certified registers and eKasa are sent as JSON over plain HTTP.",
+        "answer": false,
+        "explanation": "Messages are XML, transported over HTTPS, and digitally signed."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "eKasa — Current Law",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which law currently governs revenue recording (eKasa) in Slovakia?",
+        "options": ["Act 289/2008", "Act 384/2025", "Act 222/2004", "Act 431/2002"],
+        "answer": 1,
+        "explanation": "Act 384/2025 Coll. replaced older legislation and added support for software-based registers (SORP)."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Why eKasa Exists — The VAT Gap",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Slovakia's VAT gap BEFORE eKasa was approximately…",
+        "options": ["10%", "20%", "30%", "41%"],
+        "answer": 3,
+        "explanation": "About 41% — among the worst in the EU. The EU average was around 10%."
+      },
+      {
+        "question": "After eKasa, Slovakia's VAT gap dropped to roughly…",
+        "options": ["5%", "15%", "26%", "35%"],
+        "answer": 2,
+        "explanation": "26% — a 15-percentage-point improvement, generating around €3.7 billion in extra state revenue."
+      },
+      {
+        "question": "On which date did eKasa become mandatory for newly established businesses?",
+        "options": ["January 1, 2019", "April 1, 2019", "July 1, 2019", "January 1, 2020"],
+        "answer": 1,
+        "explanation": "April 1, 2019 for new businesses; July 1, 2019 for all existing businesses."
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Who Must Use eKasa",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "A taxi driver may bundle a whole day's fares into a single end-of-day receipt.",
+        "answer": false,
+        "explanation": "Forbidden — every individual fare must be its own receipt."
+      },
+      {
+        "statement": "A taxi driver who receives a tip must record it as a VKLAD (deposit) with its own receipt.",
+        "answer": true,
+        "explanation": "Tips are recorded as VKLAD entries in eKasa."
+      },
+      {
+        "statement": "Issuing a B2B invoice without any cash payment automatically triggers eKasa.",
+        "answer": false,
+        "explanation": "The trigger is the payment, not the invoice itself."
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "title": "ŤZP Exemption",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which group is exempt from using eKasa?",
+        "options": [
+          "Anyone over 65",
+          "Severely health-disabled (ŤZP) holders collecting payments personally",
+          "All sole traders earning under €5,000/year",
+          "Charities only"
+        ],
+        "answer": 1,
+        "explanation": "ŤZP (ťažko zdravotne postihnutý) holders are exempt — but only while they personally handle payments."
+      },
+      {
+        "question": "What happens to the ŤZP exemption if a non-disabled employee starts handling payments?",
+        "options": [
+          "Nothing changes",
+          "The exemption is lost immediately",
+          "A reduced rate applies",
+          "It must be reviewed every 5 years"
+        ],
+        "answer": 1,
+        "explanation": "The exemption is lost the moment a non-disabled person handles payments on their behalf."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "title": "Three Types of Cash Registers",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What does SORP stand for?",
+        "options": [
+          "Standard Online Registračná Pokladnica",
+          "Softvérová Online Registračná Pokladnica",
+          "Special Online Receipt Processor",
+          "Secure Offline Registračná Pokladnica"
+        ],
+        "answer": 1,
+        "explanation": "SORP = software-based online cash register, added in Act 384/2025."
+      },
+      {
+        "question": "Which register type is a free web/mobile app provided by the Financial Administration itself?",
+        "options": ["ORP", "SORP", "VRP / VRP2", "PPPEK"],
+        "answer": 2,
+        "explanation": "VRP (currently VRP2) is government-built and free to use."
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "title": "Certification Rules",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "VRP must be certified by FRSR before it can be used.",
+        "answer": false,
+        "explanation": "VRP requires no certification because the government built it itself. ORP and SORP must be certified."
+      },
+      {
+        "statement": "ORP and SORP devices must be certified by FRSR before they can be sold.",
+        "answer": true,
+        "explanation": "Certification is mandatory for any commercial register product."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "title": "VRP2 Payment Terminals",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "On iOS, which payment terminal does VRP2 support?",
+        "options": ["GP Tom only", "SumUp only", "Both SumUp and GP Tom", "Neither"],
+        "answer": 1,
+        "explanation": "On iOS, only SumUp is supported. Android users get both SumUp and GP Tom."
+      },
+      {
+        "question": "GP Tom is best described as…",
+        "options": [
+          "A portable card reader by SumUp",
+          "Global Payments' SoftPOS that turns an Android phone into a contactless card reader",
+          "An accounting integration",
+          "A receipt-printing protocol"
+        ],
+        "answer": 1,
+        "explanation": "GP Tom is Global Payments' SoftPOS solution for Android phones."
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "title": "How a Transaction Works",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What format is used for eKasa data messages?",
+        "options": ["JSON", "XML", "CSV", "Protobuf"],
+        "answer": 1,
+        "explanation": "XML messages over HTTPS, signed with the seller's certificate."
+      },
+      {
+        "question": "If eKasa returns error -1 ('system busy') or a section 2.6 error, what is the merchant allowed to do?",
+        "options": [
+          "Halt all sales immediately",
+          "Continue operating; the message is queued in CHDÚ for retry",
+          "Issue handwritten receipts",
+          "Email FRSR for permission to continue"
+        ],
+        "answer": 1,
+        "explanation": "These specific errors allow continued operation; other errors halt new transactions."
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "title": "Receipt Issuance Rule",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "A certified register may print and hand over a receipt before eKasa confirms registration.",
+        "answer": false,
+        "explanation": "Hard rule — receipts cannot be issued until eKasa confirms registration."
+      },
+      {
+        "statement": "Rejected transactions still increment the receipt sequence number.",
+        "answer": false,
+        "explanation": "Rejected transactions do NOT increment the sequence number."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "title": "CHDÚ — Protected Data Storage",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What does CHDÚ stand for?",
+        "options": [
+          "Centrálne Hardvérové Dátové Úložisko",
+          "Chránené Dátové Úložisko",
+          "Chránená Hardvérová Doménová Úroveň",
+          "Cloudové Hostované Dátové Úložisko"
+        ],
+        "answer": 1,
+        "explanation": "Chránené dátové úložisko — Protected Data Storage."
+      },
+      {
+        "question": "The CHDÚ follows the WORM principle. WORM means…",
+        "options": [
+          "Write Once Read Many",
+          "Write Only Recover Mode",
+          "Wireless Online Recording Module",
+          "Write On Read Mirror"
+        ],
+        "answer": 0,
+        "explanation": "Write Once Read Many — same principle as CD-R. Once written, data cannot be modified or deleted by anyone."
+      },
+      {
+        "question": "Software CHDÚ uses chained hashes built with which algorithm?",
+        "options": ["MD5", "SHA-1", "SHA-256", "SHA-512"],
+        "answer": 3,
+        "explanation": "Each file's hash includes the previous file's hash, forming an SHA-512 chain."
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "title": "CHDÚ Storage Rules",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the minimum required CHDÚ capacity?",
+        "options": ["1 GB", "4 GB", "8 GB", "32 GB"],
+        "answer": 2,
+        "explanation": "Minimum 8 GB; recommended capacity covers ~3 years / 300,000 receipts."
+      },
+      {
+        "question": "How is data stored in CHDÚ?",
+        "options": [
+          "Encrypted and compressed",
+          "Encrypted only",
+          "Unencrypted and uncompressed",
+          "Compressed only"
+        ],
+        "answer": 2,
+        "explanation": "By law, so inspectors can read it directly without keys or tools."
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "title": "CHDÚ Failure Mode",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "If CHDÚ is full or inaccessible, the device can still issue receipts as long as eKasa is online.",
+        "answer": false,
+        "explanation": "No CHDÚ = no receipts. The signing certificate must be fetched from CHDÚ for every signed message."
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "title": "Authentication Data Lifecycle",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "How many ACTIVE credential sets can a register have at any one time?",
+        "options": ["1", "2", "5", "20"],
+        "answer": 1,
+        "explanation": "Maximum 2 active credential sets, though CHDÚ can store up to 20 historic sets."
+      },
+      {
+        "question": "How many days BEFORE expiry can new credentials be generated?",
+        "options": ["7", "14", "30", "60"],
+        "answer": 2,
+        "explanation": "There is a 30-day pre-expiry window."
+      },
+      {
+        "question": "Where are eKasa credentials generated?",
+        "options": [
+          "On the register itself",
+          "By the device manufacturer",
+          "In the FRSR Personal Internet Zone (financnasprava.sk)",
+          "By the seller's bank"
+        ],
+        "answer": 2,
+        "explanation": "Credentials are generated through the Personal Internet Zone."
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "title": "Lost VRP Credentials",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "Lost VRP credentials can be recovered using a simple password reset.",
+        "answer": false,
+        "explanation": "There is no password reset. The merchant must file a 'Notice of Lost, Misused, or Stolen' form, the register goes READ ONLY, and a new register code is issued."
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "title": "Daily Operations — Item Types",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which item-type code represents a regular positive sale?",
+        "options": ["VO", "OZ", "K (kladná)", "VP"],
+        "answer": 2,
+        "explanation": "K = kladná (positive) — regular sales, advances, returnable packaging."
+      },
+      {
+        "question": "How are returns/refunds processed in eKasa?",
+        "options": [
+          "By voiding the original receipt",
+          "Via a dedicated 'Return of Merchandise' receipt referencing the original document ID",
+          "By calling the FRSR helpline",
+          "By issuing a negative invoice on paper"
+        ],
+        "answer": 1,
+        "explanation": "A dedicated Return-of-Merchandise document creates an audit trail by referencing the original receipt."
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Reports & Consumer Verification",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which consumer mobile app lets shoppers scan an eKasa receipt's QR code to verify it?",
+        "options": ["e-Kontrola", "eKasa peňaženka (eWallet)", "FinancnaApp", "eDaň"],
+        "answer": 1,
+        "explanation": "The eKasa peňaženka — 'eKasa eWallet' — is the official consumer verification app."
+      },
+      {
+        "question": "Which of these is NOT one of the two automatic merchant reports in the eKasa portal?",
+        "options": ["Summary Revenues", "Recorded Documents", "Inventory Levels", "(both summary and recorded reports exist)"],
+        "answer": 2,
+        "explanation": "The two automatic reports are Summary Revenues and Recorded Documents. Inventory is not part of eKasa."
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "title": "Cryptography Requirements",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which hash algorithm is explicitly BANNED by the eKasa cryptographic requirements?",
+        "options": ["SHA-1", "SHA-256", "SHA-384", "SHA-3"],
+        "answer": 0,
+        "explanation": "SHA-1 is banned. SHA-2 and SHA-3 families are allowed."
+      },
+      {
+        "question": "Minimum RSA key size accepted by the eKasa spec?",
+        "options": ["1024", "1536", "2048", "4096"],
+        "answer": 2,
+        "explanation": "RSA n ≥ 2048, per NIST SP 800-131A Rev 1."
+      },
+      {
+        "question": "Which symmetric mode is explicitly forbidden?",
+        "options": ["CBC", "GCM", "CTR", "ECB"],
+        "answer": 3,
+        "explanation": "ECB is banned because it leaks patterns; any other mode of AES, 3-key TDEA, or ChaCha20 is acceptable."
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "title": "Android Device Hardening",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "On a certified Android-based eKasa register, USB/ADB debugging must be disabled and the bootloader locked.",
+        "answer": true,
+        "explanation": "Plus: fastboot disabled, only signed apps installable, and SD/eMMC unreadable at recovery level."
+      },
+      {
+        "statement": "Manufacturers may keep the OS image and device passwords confidential from FRSR.",
+        "answer": false,
+        "explanation": "They must hand over a 1:1 OS binary image and all device passwords to FRSR."
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "title": "Tax Inspector USB Export",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "How must the tax inspector's USB drive be formatted?",
+        "options": ["FAT32", "exFAT", "NTFS", "ext4"],
+        "answer": 1,
+        "explanation": "exFAT is required."
+      },
+      {
+        "question": "What marker file must be present in the USB root to trigger the export?",
+        "options": ["ekasa.txt", "FSSR_export", "INSPECT.TAG", "audit.csv"],
+        "answer": 1,
+        "explanation": "A file named exactly 'FSSR_export' (no extension) in the USB root."
+      },
+      {
+        "question": "What is exported to the USB?",
+        "options": [
+          "Only the latest day's receipts, encrypted",
+          "The entire CHDÚ contents as an unencrypted ZIP",
+          "An anonymized CSV of revenues",
+          "Nothing — inspectors must use a separate tool"
+        ],
+        "answer": 1,
+        "explanation": "Full CHDÚ contents as an unencrypted ZIP, named <register_code>YYMMDD-hhmmss.zip."
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "title": "Integrity Check",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "At every system start, the device recomputes the entire SHA-512 chain from the beginning and compares against stored .SYNC files.",
+        "answer": true,
+        "explanation": "Any mismatch blocks all writes and reports the exact .SYNC file location of the failure."
+      },
+      {
+        "statement": "After a CHDÚ integrity failure, the merchant can clear the error themselves and resume sales.",
+        "answer": false,
+        "explanation": "The device cannot resume operations without manufacturer intervention."
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "title": "Key Dates",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "When did eKasa become mandatory for ALL existing businesses?",
+        "options": ["April 1, 2019", "July 1, 2019", "January 1, 2020", "January 1, 2025"],
+        "answer": 1,
+        "explanation": "July 1, 2019 — universal coverage achieved."
+      },
+      {
+        "question": "What changed for eKasa users on January 1, 2025?",
+        "options": [
+          "eKasa became optional",
+          "New VAT rates were introduced; all devices needed updates",
+          "VRP was discontinued",
+          "ORP became mandatory"
+        ],
+        "answer": 1,
+        "explanation": "VRP got the update automatically; ORP users had to wait for manufacturer updates."
+      },
+      {
+        "question": "Which spec version was published on December 8, 2025?",
+        "options": ["v1.5", "v1.6", "v1.7", "v1.8"],
+        "answer": 3,
+        "explanation": "v1.8 — added requirements for SORP and cloud-hosted CHDÚ."
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "title": "International Comparisons",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Which country runs the 'Lotteria degli Scontrini' — a lottery linked to receipts?",
+        "options": ["Hungary", "Poland", "Italy", "Czech Republic"],
+        "answer": 2,
+        "explanation": "Italy. Hungary and Poland have their own real-time fiscal register systems too."
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "title": "Manufacturer Obligations",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the maximum validity period of an eKasa device certification?",
+        "options": ["1 year", "3 years", "5 years", "10 years"],
+        "answer": 2,
+        "explanation": "Maximum 5 years. FRSR must decide on a certification application within 90 days."
+      },
+      {
+        "question": "Manufacturers submit source code to FRSR. Why does FRSR insist on compiling it themselves?",
+        "options": [
+          "To save bandwidth",
+          "Pre-built binaries are not accepted — FRSR must compile on their own machines to ensure trust",
+          "To localize it into Slovak",
+          "To strip out telemetry"
+        ],
+        "answer": 1,
+        "explanation": "FRSR refuses pre-built binaries to remove the chance of hidden modifications."
+      },
+      {
+        "question": "Can the PPPEK and CHDÚ be certified independently of each other?",
+        "options": ["Yes, always", "Yes, if from the same vendor", "No — they must be certified together", "Only for VRP"],
+        "answer": 2,
+        "explanation": "PPPEK and CHDÚ must be certified together."
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "title": "GDPR & Government Visibility",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "eKasa stores the personal identity of every consumer who buys something.",
+        "answer": false,
+        "explanation": "The system stores transaction data, not personal customer data. Customer ID is optional and used only for cases like B2B invoices."
+      },
+      {
+        "statement": "A merchant can simply switch off the device to avoid eKasa, with no consequences.",
+        "answer": false,
+        "explanation": "If the device is off, the merchant cannot legally accept payments. Inspectors can check whether sales are happening during business hours."
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "title": "═══════════ eKasa PRESENTATION — END ═══════════",
+    "type": "true_false",
+    "questions": [
+      {
+        "statement": "This marks the end of the eKasa presentation question set.",
+        "answer": true,
+        "explanation": "Separator marker — the eKasa block runs from question 41 to 66."
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "title": "Insane Facts From the Animal Kingdom",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "The pistol shrimp snaps its claw so violently that it creates a cavitation bubble. What insane thing happens when that bubble collapses?",
+        "options": [
+          "It produces a faint glow of light and reaches temperatures briefly comparable to the surface of the Sun",
+          "It freezes the water around it solid",
+          "It releases a small electric shock",
+          "It emits a radio pulse"
+        ],
+        "answer": 0,
+        "explanation": "Sonoluminescence — the collapsing bubble briefly hits ~4,700 °C (close to the Sun's surface) and emits a flash of light. Also one of the loudest sounds in the ocean."
+      },
+      {
+        "question": "Turritopsis dohrnii, a tiny jellyfish, is famous for being able to do what?",
+        "options": [
+          "Survive being frozen for centuries",
+          "Revert to its juvenile polyp stage and effectively start its life over — making it biologically 'immortal'",
+          "Live entirely without water for years",
+          "Photosynthesize like a plant"
+        ],
+        "answer": 1,
+        "explanation": "When stressed or injured, it transforms its cells back into the polyp stage and starts again — earning it the nickname 'the immortal jellyfish'."
+      },
+      {
+        "question": "Tardigrades ('water bears') have famously survived which of the following?",
+        "options": [
+          "Only extreme cold",
+          "Only the bottom of the ocean",
+          "The vacuum of outer space, including direct solar radiation",
+          "Nothing — they're actually very fragile"
+        ],
+        "answer": 2,
+        "explanation": "In a 2007 ESA experiment, tardigrades survived 10 days exposed to the vacuum of space and cosmic radiation. They can also handle near-absolute-zero temperatures and pressures over 6x the deepest ocean trench."
+      },
+      {
+        "question": "The mantis shrimp's punch is so fast that it…",
+        "options": [
+          "Travels faster than a .22 caliber bullet",
+          "Boils water and produces a flash of light from cavitation, and accelerates faster than a bullet from a gun",
+          "Generates an electric arc",
+          "Can shatter steel plates"
+        ],
+        "answer": 1,
+        "explanation": "Its dactyl club accelerates at over 10,000 g, momentarily superheats the water via cavitation, and the collapsing bubble produces a flash of light — a second 'shockwave' strike even if the first misses."
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "title": "Math — Basic Equation",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Solve for x:    3x + 7 = 22",
+        "options": ["x = 3", "x = 5", "x = 7", "x = 15"],
+        "answer": 1,
+        "explanation": "3x = 22 − 7 = 15, so x = 15 / 3 = 5."
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "title": "Math — System of Equations",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "Solve the system:    x + y = 7    and    2x − y = 8",
+        "options": [
+          "x = 3, y = 4",
+          "x = 5, y = 2",
+          "x = 4, y = 3",
+          "x = 2, y = 5"
+        ],
+        "answer": 1,
+        "explanation": "Add the two equations: (x + y) + (2x − y) = 7 + 8 → 3x = 15 → x = 5. Then y = 7 − 5 = 2."
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "title": "Math — Simple Derivative",
+    "type": "multiple_choice",
+    "questions": [
+      {
+        "question": "What is the derivative of    f(x) = 3x² + 2x − 5 ?",
+        "options": [
+          "f'(x) = 6x + 2",
+          "f'(x) = 3x + 2",
+          "f'(x) = 6x² + 2x",
+          "f'(x) = 6x − 5"
+        ],
+        "answer": 0,
+        "explanation": "Power rule: d/dx(3x²) = 6x, d/dx(2x) = 2, and the derivative of a constant (−5) is 0. So f'(x) = 6x + 2."
+      }
+    ]
   }
-
-
-
-  
 ]
